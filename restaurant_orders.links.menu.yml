@@ -1,0 +1,18 @@
+
+# Tax type menu items definition
+entity.restaurant_tax_type.collection:
+  title: 'Tax type'
+  route_name: entity.restaurant_tax_type.collection
+  description: 'List Tax type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+
+
+# Tax menu items definition
+entity.restaurant_tax.collection:
+  title: 'Tax'
+  route_name: entity.restaurant_tax.collection
+  description: 'List Tax (bundles)'
+  parent: system.admin_structure
+  weight: 99
+

@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains restaurant_invoice.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function restaurant_invoice_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the restaurant_invoice module.
+    case 'help.page.restaurant_invoice':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Invoices for the restaurant') . '</p>';
+      return $output;
+
+    default:
+  }
+}

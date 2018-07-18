@@ -1,0 +1,22 @@
+# Line item routing definition
+line_item.settings_tab:
+  route_name: line_item.settings
+  title: 'Settings'
+  base_route: line_item.settings
+
+entity.line_item.canonical:
+  route_name: entity.line_item.canonical
+  base_route: entity.line_item.canonical
+  title: 'View'
+
+entity.line_item.edit_form:
+  route_name: entity.line_item.edit_form
+  base_route: entity.line_item.canonical
+  title: 'Edit'
+
+entity.line_item.delete_form:
+  route_name:  entity.line_item.delete_form
+  base_route:  entity.line_item.canonical
+  title: Delete
+  weight: 10
+

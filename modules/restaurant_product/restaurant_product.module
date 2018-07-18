@@ -1,0 +1,56 @@
+<?php
+
+/**
+ * @file
+ * Contains restaurant_product.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Render\Element;
+
+/**
+ * Implements hook_help().
+ */
+function restaurant_product_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the restaurant_product module.
+    case 'help.page.restaurant_product':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Product used for restaurants') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function restaurant_theme() {
+  return [
+    'restaurant' => [
+      'content' => 'children',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for Product templates.
+ *
+ * Default template: restaurant_product.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the user information and any
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_restaurant_product(array &$variables) {
+  // Fetch Product Entity Object.
+  $restaurant_product = $variables['children']['#restaurant_product'];
+  kint($variables);
+  // Helpful $content variable for templates.
+  foreach (Element::children($variables['children']) as $key) {
+    $variables['content'][$key] = $variables['children'][$key];
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "drupal/restaurant_line_item",
+  "type": "drupal-module",
+  "description": "Line Items for the restaurant invoices",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/restaurant_line_item",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/restaurant_line_item",
+    "source": "http://cgit.drupalcode.org/restaurant_line_item"
+  },
+  "require": { }
+}

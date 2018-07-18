@@ -1,0 +1,5 @@
+entity.restaurant_invoice.add_form:
+  route_name: entity.restaurant_invoice.add_form
+  title: 'Add Invoice'
+  appears_on:
+    - entity.restaurant_invoice.collection

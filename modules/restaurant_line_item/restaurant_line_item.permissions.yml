@@ -1,0 +1,19 @@
+add line item entities:
+  title: 'Create new Line item entities'
+
+administer line item entities:
+  title: 'Administer Line item entities'
+  description: 'Allow to access the administration form to configure Line item entities.'
+  restrict access: true
+
+delete line item entities:
+  title: 'Delete Line item entities'
+
+edit line item entities:
+  title: 'Edit Line item entities'
+
+view published line item entities:
+  title: 'View published Line item entities'
+
+view unpublished line item entities:
+  title: 'View unpublished Line item entities'

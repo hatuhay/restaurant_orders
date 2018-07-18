@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Contains restaurant_cart.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function restaurant_cart_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the restaurant_cart module.
+    case 'help.page.restaurant_cart':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Ordering processing for the restaurant') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function restaurant_cart_theme() {
+  return [
+    'restaurant_cart' => [
+      'render element' => 'children',
+    ],
+  ];
+}

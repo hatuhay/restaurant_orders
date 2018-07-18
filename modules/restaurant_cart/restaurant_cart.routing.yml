@@ -1,0 +1,13 @@
+restaurant_cart.payment_line_item_element:
+  path: '/admin/payment_line_item_element'
+  defaults:
+    _form: '\Drupal\restaurant_cart\Form\PaymentLineItemElement'
+  requirements:
+    _access: 'TRUE'
+
+restaurant_cart.payment_line_item_payment_basic_form_elements:
+  path: '/admin/payment_line_item_form'
+  defaults:
+    _form: '\Drupal\restaurant_cart\Form\PaymentLineItemPaymentBasicFormElements'
+  requirements:
+    _access: 'TRUE'

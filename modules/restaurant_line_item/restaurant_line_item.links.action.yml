@@ -1,0 +1,5 @@
+entity.line_item.add_form:
+  route_name: entity.line_item.add_form
+  title: 'Add Line item'
+  appears_on:
+    - entity.line_item.collection

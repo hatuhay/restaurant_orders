@@ -1,0 +1,14 @@
+{
+  "name": "drupal/restaurant_orders",
+  "type": "drupal-module",
+  "description": "Restaurant ordering system",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/restaurant_orders",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/restaurant_orders",
+    "source": "http://cgit.drupalcode.org/restaurant_orders"
+  },
+  "require": { }
+}

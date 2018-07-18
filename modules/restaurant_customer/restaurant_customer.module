@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Contains restaurant_customer.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function restaurant_customer_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the restaurant_customer module.
+    case 'help.page.restaurant_customer':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Customer for the restaurant module') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function restaurant_customer_theme() {
+  $theme = [];
+  $theme['restaurant_customer'] = [
+    'render element' => 'elements',
+    'file' => 'restaurant_customer.page.inc',
+    'template' => 'restaurant_customer',
+  ];
+  $theme['restaurant_customer_content_add_list'] = [
+    'render element' => 'content',
+    'variables' => ['content' => NULL],
+    'file' => 'restaurant_customer.page.inc',
+  ];
+  return $theme;
+}
+
+/**
+* Implements hook_theme_suggestions_HOOK().
+*/
+function restaurant_customer_theme_suggestions_restaurant_customer(array $variables) {
+  $suggestions = [];
+  $entity = $variables['elements']['#restaurant_customer'];
+  $sanitized_view_mode = strtr($variables['elements']['#view_mode'], '.', '_');
+
+  $suggestions[] = 'restaurant_customer__' . $sanitized_view_mode;
+  $suggestions[] = 'restaurant_customer__' . $entity->bundle();
+  $suggestions[] = 'restaurant_customer__' . $entity->bundle() . '__' . $sanitized_view_mode;
+  $suggestions[] = 'restaurant_customer__' . $entity->id();
+  $suggestions[] = 'restaurant_customer__' . $entity->id() . '__' . $sanitized_view_mode;
+  return $suggestions;
+}

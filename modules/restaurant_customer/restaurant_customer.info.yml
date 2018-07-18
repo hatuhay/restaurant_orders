@@ -1,0 +1,5 @@
+name: 'Restaurant Customer'
+type: module
+description: 'Customer for the restaurant module'
+core: 8.x
+package: 'Restaurant'

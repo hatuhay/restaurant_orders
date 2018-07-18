@@ -1,0 +1,20 @@
+
+# Product menu items definition
+entity.restaurant_product.collection:
+  title: 'Products'
+  route_name: entity.restaurant_product.collection
+  description: 'List product entities'
+  parent: system.admin_content
+  weight: 100
+
+entity.restaurant_product.add_form:
+  route_name: entity.restaurant_product.add_form
+  title: 'Add Product'
+  description: 'Add product form'
+  parent: entity.restaurant_product.collection
+
+restaurant_product.admin.structure.settings:
+  title: 'Product settings'
+  description: 'Configure product entities'
+  route_name: restaurant_product.settings
+  parent: system.admin_structure

@@ -1,0 +1,12 @@
+entity.restaurant_tax_type.add_form:
+  route_name: entity.restaurant_tax_type.add_form
+  title: 'Add Tax type'
+  appears_on:
+    - entity.restaurant_tax_type.collection
+
+entity.restaurant_tax.add_form:
+  route_name: entity.restaurant_tax.add_form
+  title: 'Add Tax'
+  appears_on:
+    - entity.restaurant_tax.collection
+

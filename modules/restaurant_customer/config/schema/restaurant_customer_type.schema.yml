@@ -1,0 +1,12 @@
+restaurant_customer.restaurant_customer_type.*:
+  type: config_entity
+  label: 'Customer type config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

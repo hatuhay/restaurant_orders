@@ -1,0 +1,14 @@
+{
+  "name": "drupal/restaurant_product",
+  "type": "drupal-module",
+  "description": "Product used for restaurants",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/restaurant_product",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/restaurant_product",
+    "source": "http://cgit.drupalcode.org/restaurant_product"
+  },
+  "require": { }
+}

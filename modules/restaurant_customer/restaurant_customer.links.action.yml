@@ -1,0 +1,11 @@
+entity.restaurant_customer.add_form:
+  route_name: entity.restaurant_customer.add_page
+  title: 'Add Customer'
+  appears_on:
+    - entity.restaurant_customer.collection
+entity.restaurant_customer_type.add_form:
+  route_name: entity.restaurant_customer_type.add_form
+  title: 'Add Customer type'
+  appears_on:
+    - entity.restaurant_customer_type.collection
+

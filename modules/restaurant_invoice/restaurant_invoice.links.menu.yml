@@ -1,0 +1,14 @@
+
+# Invoice menu items definition
+entity.restaurant_invoice.collection:
+  title: 'Invoice list'
+  route_name: entity.restaurant_invoice.collection
+  description: 'List Invoice entities'
+  parent: system.admin_structure
+  weight: 100
+
+restaurant_invoice.admin.structure.settings:
+  title: 'Invoice settings'
+  description: 'Configure Invoice entities'
+  route_name: restaurant_invoice.settings
+  parent: system.admin_structure

@@ -1,0 +1,14 @@
+{
+  "name": "drupal/restaurant_invoice",
+  "type": "drupal-module",
+  "description": "Invoices for the restaurant",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/restaurant_invoice",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/restaurant_invoice",
+    "source": "http://cgit.drupalcode.org/restaurant_invoice"
+  },
+  "require": { }
+}

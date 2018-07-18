@@ -1,0 +1,14 @@
+
+# Line item menu items definition
+entity.line_item.collection:
+  title: 'Line item list'
+  route_name: entity.line_item.collection
+  description: 'List Line item entities'
+  parent: system.admin_structure
+  weight: 100
+
+line_item.admin.structure.settings:
+  title: 'Line item settings'
+  description: 'Configure Line item entities'
+  route_name: line_item.settings
+  parent: system.admin_structure

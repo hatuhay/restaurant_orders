@@ -1,0 +1,5 @@
+name: 'Restaurant Cart'
+type: module
+description: 'Ordering processing for the restaurant'
+core: 8.x
+package: 'Custom'

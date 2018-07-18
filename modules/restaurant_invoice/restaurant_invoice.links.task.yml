@@ -1,0 +1,22 @@
+# Invoice routing definition
+restaurant_invoice.settings_tab:
+  route_name: restaurant_invoice.settings
+  title: 'Settings'
+  base_route: restaurant_invoice.settings
+
+entity.restaurant_invoice.canonical:
+  route_name: entity.restaurant_invoice.canonical
+  base_route: entity.restaurant_invoice.canonical
+  title: 'View'
+
+entity.restaurant_invoice.edit_form:
+  route_name: entity.restaurant_invoice.edit_form
+  base_route: entity.restaurant_invoice.canonical
+  title: 'Edit'
+
+entity.restaurant_invoice.delete_form:
+  route_name:  entity.restaurant_invoice.delete_form
+  base_route:  entity.restaurant_invoice.canonical
+  title: Delete
+  weight: 10
+

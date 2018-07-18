@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains restaurant_line_item.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function restaurant_line_item_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the restaurant_line_item module.
+    case 'help.page.restaurant_line_item':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Line Items for the restaurant invoices') . '</p>';
+      return $output;
+
+    default:
+  }
+}

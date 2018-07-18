@@ -1,0 +1,7 @@
+name: 'Restaurant Invoice'
+type: module
+description: 'Invoices for the restaurant'
+core: 8.x
+package: 'Restaurant'
+dependencies:
+  - restaurant_line_item
