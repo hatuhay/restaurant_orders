@@ -4,6 +4,7 @@ namespace Drupal\restaurant_orders\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\restaurant_orders\Controller\RestaurantHelper;
 
 /**
  * Class TaxForm.
@@ -15,16 +16,46 @@ class TaxForm extends EntityForm {
    */
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
-
+    $tax_options = RestaurantHelper::TaxTypeOptions();
     $restaurant_tax = $this->entity;
     $form['label'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('Label'),
+      '#title' => $this->t('Short Label'),
       '#maxlength' => 255,
       '#default_value' => $restaurant_tax->label(),
-      '#description' => $this->t("Label for the Tax."),
+      '#description' => $this->t("Short label for the Tax."),
       '#required' => TRUE,
     ];
+
+    $form['description'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Description'),
+      '#maxlength' => 255,
+      '#default_value' => $restaurant_tax->get(description),
+      '#description' => $this->t("Description for the Tax."),
+      '#required' => TRUE,
+    ];
+
+    $form['tax_type'] = array(
+      '#type' => 'select',
+      '#options' => $tax_options,
+      '#title' => $this->t('Tax Type'),
+      '#maxlength' => 255,
+      '#default_value' => $restaurant_tax->get(tax_type),
+      '#description' => $this->t("The tax type."),
+      '#required' => TRUE,
+    );
+
+    $form['percent'] = array(
+      '#type' => 'textfield',
+      '#title' => $this
+        ->t('Percentage'),
+      '#description' => $this->t("Tax value expressed in decimal format (example: 0.18"),
+      '#default_value' => $restaurant_tax->get(percent),
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => TRUE,
+    );
 
     $form['id'] = [
       '#type' => 'machine_name',
@@ -34,8 +65,6 @@ class TaxForm extends EntityForm {
       ],
       '#disabled' => !$restaurant_tax->isNew(),
     ];
-
-    /* You will need additional form elements for your custom properties. */
 
     return $form;
   }

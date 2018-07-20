@@ -8,5 +8,14 @@ restaurant_orders.restaurant_tax.*:
     label:
       type: label
       label: 'Label'
+    description:
+      type: string
+      label: 'description'
+    tax_type:
+      type: label
+      label: 'Tax Type'
+    percent:
+      type: float
+      label: 'Percent'
     uuid:
       type: string

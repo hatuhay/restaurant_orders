@@ -25,7 +25,13 @@ class TaxTypeForm extends EntityForm {
       '#description' => $this->t("Label for the Tax type."),
       '#required' => TRUE,
     ];
-
+    $form['description'] = [
+      '#type' => 'textarea',
+      '#default_value' => $restaurant_tax_type->get('description'),
+      '#title' => $this
+        ->t('Description'),
+      '#description' => $this->t("Description for the Tax type."),
+    ];
     $form['id'] = [
       '#type' => 'machine_name',
       '#default_value' => $restaurant_tax_type->id(),

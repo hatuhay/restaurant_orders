@@ -1,6 +1,6 @@
-restaurant_orders.restaurant_tax_type.*:
+restaurant_invoice.invoice_type.*:
   type: config_entity
-  label: 'Tax type config'
+  label: 'Invoice type config'
   mapping:
     id:
       type: string
@@ -8,8 +8,5 @@ restaurant_orders.restaurant_tax_type.*:
     label:
       type: label
       label: 'Label'
-    description:
-      type: string
-      label: 'Description'
     uuid:
       type: string

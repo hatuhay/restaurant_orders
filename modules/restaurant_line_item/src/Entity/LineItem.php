@@ -38,6 +38,7 @@ use Drupal\user\UserInterface;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "name",
+ *     "invoice" = "invoice",
  *     "uuid" = "uuid",
  *     "uid" = "user_id",
  *     "langcode" = "langcode",
@@ -145,7 +146,8 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
   /**
    * {@inheritdoc}
    */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
+
+   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
@@ -173,6 +175,46 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['invoice'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Invoice'))
+      ->setSetting('target_type', 'restaurant_invoice')
+      ->setSetting('handler', 'default')
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'entity_reference_label',
+        'weight' => 0,
+        'settings' => [
+          'link' => TRUE,
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => 5,
+      ])
+
+    $fields['product'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Product'))
+      ->setRevisionable(FALSE)
+      ->setSetting('target_type', 'restaurant_product')
+      ->setSetting('handler', 'default')
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'author',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 5,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder' => '',
+        ],
+      ])
+
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
       ->setDescription(t('The name of the Line item entity.'))
@@ -193,6 +235,49 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
+
+    $fields['quantity'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('Quantity'))
+      ->setRequired(TRUE)
+      ->setDefaultValue(0)
+      ->setSettings([
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['price'] = BaseFieldDefinition::create('decimal')
+      ->setLabel(t('Price'))
+      ->setRequired(TRUE)
+      ->setDefaultValue(0)
+      ->setSettings([
+        'precision' => 19,
+        'scale' => 2,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'currency_amount',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['overwrite'] = BaseFieldDefinition::create('boolean')
+      ->setLabel(t('Price is overwrited'))
+      ->setDefaultValue(FALSE)
+      ->setDisplayOptions('form', [
+        'type' => 'boolean_checkbox',
+        'weight' => -3,
+      ]);
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))

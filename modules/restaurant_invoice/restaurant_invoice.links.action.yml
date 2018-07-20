@@ -3,3 +3,9 @@ entity.restaurant_invoice.add_form:
   title: 'Add Invoice'
   appears_on:
     - entity.restaurant_invoice.collection
+entity.invoice_type.add_form:
+  route_name: entity.invoice_type.add_form
+  title: 'Add Invoice type'
+  appears_on:
+    - entity.invoice_type.collection
+

@@ -54,4 +54,25 @@ class Tax extends ConfigEntityBase implements TaxInterface {
    */
   protected $label;
 
+  /**
+   * The Tax description.
+   *
+   * @var string
+   */
+  protected $description;
+
+  /**
+   * The Tax type.
+   *
+   * @var string
+   */
+  protected $tax_type;
+
+  /**
+   * Percent.
+   *
+   * @var float
+   */
+  protected $percent;
+
 }

@@ -12,3 +12,12 @@ restaurant_invoice.admin.structure.settings:
   description: 'Configure Invoice entities'
   route_name: restaurant_invoice.settings
   parent: system.admin_structure
+
+# Invoice type menu items definition
+entity.invoice_type.collection:
+  title: 'Invoice type'
+  route_name: entity.invoice_type.collection
+  description: 'List Invoice type (bundles)'
+  parent: system.admin_structure
+  weight: 99
+

@@ -2,7 +2,7 @@
 
 namespace Drupal\restaurant_product\Form;
 
-use Drupal\Core\Form\ConfigFormBase;
+use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -10,7 +10,7 @@ use Drupal\Core\Form\FormStateInterface;
  *
  * @ingroup restaurant_product
  */
-class ProductSettingsForm extends ConfigFormBase {
+class ProductSettingsForm extends FormBase {
 
   /**
    * Returns a unique string identifying the form.
@@ -23,7 +23,19 @@ class ProductSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * Defines the settings form for Product entities.
+   * Form submission handler.
+   *
+   * @param array $form
+   *   An associative array containing the structure of the form.
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The current state of the form.
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    // Empty implementation of the abstract submit class.
+  }
+
+  /**
+   * Defines the settings form for Line item entities.
    *
    * @param array $form
    *   An associative array containing the structure of the form.
@@ -34,28 +46,8 @@ class ProductSettingsForm extends ConfigFormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('restaurant_product.settings');
-
-    $currency_options = \Drupal::service('currency.form_helper')->getCurrencyOptions();
-    reset($currency_options);
-    $form['product_settings']["currency"] = [
-      '#type' => 'select',
-      '#title' => $this->t('Default Currency'),
-      '#options' => \Drupal::service('currency.form_helper')->getCurrencyOptions(),
-      '#default_value' => key($currency_options),
-      '#required' => TRUE,
-    ];
-
-    return parent::buildForm($form, $form_state);
-  }
-
-  /** 
-   * {@inheritdoc}
-   */
-  protected function getEditableConfigNames() {
-    return [
-      'restaurant_product.settings',
-    ];
+    $form['product_settings']['#markup'] = 'Settings form for product. Manage field settings here.';
+    return $form;
   }
 
 }

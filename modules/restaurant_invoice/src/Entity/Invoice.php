@@ -174,8 +174,8 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayConfigurable('view', TRUE);
 
     $fields['name'] = BaseFieldDefinition::create('string')
-      ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Invoice entity.'))
+      ->setLabel(t('Number'))
+      ->setDescription(t('The number of the invoice.'))
       ->setSettings([
         'max_length' => 50,
         'text_processing' => 0,
