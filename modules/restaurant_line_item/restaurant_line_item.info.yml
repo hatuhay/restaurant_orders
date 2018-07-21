@@ -5,3 +5,4 @@ core: 8.x
 package: 'Restaurant'
 dependencies:
   - restaurant_product
+  - restaurant_orders

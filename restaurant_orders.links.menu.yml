@@ -4,7 +4,7 @@ entity.restaurant_tax_type.collection:
   title: 'Tax type'
   route_name: entity.restaurant_tax_type.collection
   description: 'List Tax type (bundles)'
-  parent: system.admin_structure
+  parent: entity.restaurant_tax.collection
   weight: 99
 
 
@@ -13,6 +13,14 @@ entity.restaurant_tax.collection:
   title: 'Tax'
   route_name: entity.restaurant_tax.collection
   description: 'List Tax (bundles)'
-  parent: system.admin_structure
+  parent: system.admin_restaurant
   weight: 99
 
+# Settings form
+system.admin_restaurant:
+  title: 'Restaurant'
+  route_name: system.admin_restaurant
+  description: 'Restaurant settings form'
+  parent: system.admin
+  weight: 99
+ 

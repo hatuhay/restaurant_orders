@@ -194,14 +194,201 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
 
-    $fields['status'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('Publishing status'))
-      ->setDescription(t('A boolean indicating whether the Invoice is published.'))
-      ->setDefaultValue(TRUE)
+    $fields['type'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Type'))
+      ->setSetting('target_type', 'invoice_type')
+      ->setSetting('handler', 'default')
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'entity_reference_label',
+        'weight' => 0,
+        'settings' => [
+          'link' => TRUE,
+        ],
+      ])
       ->setDisplayOptions('form', [
-        'type' => 'boolean_checkbox',
+        'type' => 'options_buttons',
+        'weight' => 5,
+      ])
+
+    $fields['customer'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Customer'))
+      ->setRevisionable(TRUE)
+      ->setSetting('target_type', 'restaurant_customer')
+      ->setSetting('handler', 'default')
+      ->setTranslatable(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'entity_reference_autocomplete',
+        'weight' => 5,
+        'settings' => [
+          'match_operator' => 'CONTAINS',
+          'size' => '60',
+          'autocomplete_type' => 'tags',
+          'placeholder' => '',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['table'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Table'))
+      ->setSetting('target_type', 'taxonomy_term')
+      ->setSetting('handler', 'default')
+      ->setSetting('target_bundle_tags', 'table')
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'entity_reference_label',
+        'weight' => 0,
+        'settings' => [
+          'link' => FALSE,
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => 5,
+      ])
+
+    $fields['payment'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Payment'))
+      ->setSetting('target_type', 'payment')
+      ->setSetting('handler', 'default')
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
+        'weight' => 0,
+        'settings' => [
+          'link' => FALSE,
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => 5,
+      ])
+
+    $fields['status'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Table'))
+      ->setSetting('target_type', 'invoice_status')
+      ->setSetting('handler', 'default')
+      ->setTranslatable(FALSE)
+      ->setDisplayOptions('view', [
+        'weight' => 0,
+        'settings' => [
+          'link' => FALSE,
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => 5,
+      ])
+
+    $fields['currency'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Currency'))
+      ->setSetting('target_type', 'currency')
+      ->setSetting('handler', 'default')
+      ->setDefaultValueCallback('Drupal\restaurant_orders\Controller\CurrencyHelper::getDefaultCurrency')
+      ->setReadOnly(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'currency_sign',
         'weight' => -3,
-      ]);
+        'settings' => [
+          'link' => FALSE,
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => -3,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['amount'] = BaseFieldDefinition::create('decimal')
+      ->setLabel(t('Total amount'))
+      ->setRequired(TRUE)
+      ->setDefaultValue(0)
+      ->setSettings([
+        'precision' => 19,
+        'scale' => 6,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'currency_amount',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['tax_amount'] = BaseFieldDefinition::create('decimal')
+      ->setLabel(t('Tax Amount'))
+      ->setRequired(TRUE)
+      ->setDefaultValue(0)
+      ->setSettings([
+        'precision' => 19,
+        'scale' => 6,
+      ])
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'type' => 'currency_amount',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['payment_reference'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Payment Reference'))
+      ->setDescription(t('Payment reference.'))
+      ->setSettings([
+        'max_length' => 255,
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+
+    $fields['payment_date'] = BaseFieldDefinition::create('datetime')
+      ->setLabel(t('Payment Date'))
+      ->setDescription(t('Payment date.'))
+      ->setSettings([
+        'datetime_type' => 'date',
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'datetime_default',
+        'weight' => -4,
+        'settings' => [
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'datetime_default',
+        'weight' => -4,
+        'settings' => [
+          'format_type' => 'html_date',
+        ],
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))

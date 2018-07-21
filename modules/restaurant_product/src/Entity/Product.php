@@ -201,7 +201,7 @@ class Product extends ContentEntityBase implements ProductInterface {
       ->setLabel(t('Currency'))
       ->setSetting('target_type', 'currency')
       ->setSetting('handler', 'default')
-      ->setDefaultValueCallback('Drupal\restaurant_product\Controller\CurrencyHelper::getDefaultCurrency')
+      ->setDefaultValueCallback('Drupal\restaurant_orders\Controller\CurrencyHelper::getDefaultCurrency')
       ->setReadOnly(TRUE)
       ->setDisplayOptions('view', [
         'label' => 'hidden',

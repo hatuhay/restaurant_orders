@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\restaurant_product\Plugin\Field\FieldFormatter;
+namespace Drupal\restaurant_orders\Plugin\Field\FieldFormatter;
      
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;

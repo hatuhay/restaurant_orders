@@ -1,0 +1,7 @@
+uuid: ffb849db-5d95-4f96-98b2-91566dd01868
+langcode: es
+status: true
+dependencies: {  }
+id: sales_tax
+label: 'Sales Tax'
+description: 'Is calculated taking the tax reducing the tagged price'

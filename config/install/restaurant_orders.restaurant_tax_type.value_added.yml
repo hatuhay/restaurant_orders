@@ -1,0 +1,7 @@
+uuid: e6fb5137-0f5b-4a48-ba22-e90855582af7
+langcode: es
+status: true
+dependencies: {  }
+id: value_added
+label: 'Value Added'
+description: 'The tax is calculated over the tagged price'

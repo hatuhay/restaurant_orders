@@ -1,10 +1,10 @@
 <?php
 
-namespace Drupal\restaurant_product\Controller;
+namespace Drupal\restaurant_orders\Controller;
 
 /**
  * @file
- * Contains \Drupal\restaurant_product\Controller\CurrencyHelper.
+ * Contains \Drupal\restaurant_orders\Controller\CurrencyHelper.
  */
 use Drupal\Core\Controller\ControllerBase;
 
@@ -29,7 +29,7 @@ class CurrencyHelper extends ControllerBase {
    * Check.
    */
   public static function getDefaultCurrency() {
-    $currency_id = isset(\Drupal::config('restaurant_product.settings')->get('restaurant_product')) ? \Drupal::config('restaurant_product.settings')->get('restaurant_product') : 'XXX';
+    $currency_id = isset(\Drupal::config('restaurant_orders.settings')->get('currency')) ? \Drupal::config('restaurant_orders.settings')->get('currency') : 'XXX';
     return self::getCurrency($currency_id);
   }
 
@@ -37,6 +37,14 @@ class CurrencyHelper extends ControllerBase {
    * Get Entity Currency
    */
   public function getCurrency($currency_id) {
+    return \Drupal::entityTypeManager()->getStorage("currency")->load($currency_id)
+  }
+
+  /** 
+   * Get Entity Currency
+   */
+  public function getDefaultEntityCurrency() {
+    $currency_id = self::getDefaultCurrency();
     return \Drupal::entityTypeManager()->getStorage("currency")->load($currency_id)
   }
 

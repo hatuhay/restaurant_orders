@@ -1,0 +1,12 @@
+restaurant_invoice.invoice_status.*:
+  type: config_entity
+  label: 'Invoice status config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

@@ -1,0 +1,15 @@
+restaurant_invoice.payment.*:
+  type: config_entity
+  label: 'Payment config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    tax_type:
+      type: string
+      label: 'Default Payment Status'
+    uuid:
+      type: string

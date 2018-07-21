@@ -5,3 +5,6 @@ core: 8.x
 package: 'Restaurant'
 dependencies:
   - restaurant_line_item
+  - restaurant_orders
+  - restaurant_customer
+  - Restaurant_product

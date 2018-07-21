@@ -9,3 +9,21 @@ entity.invoice_type.add_form:
   appears_on:
     - entity.invoice_type.collection
 
+entity.payment.add_form:
+  route_name: entity.payment.add_form
+  title: 'Add Payment'
+  appears_on:
+    - entity.payment.collection
+
+entity.payment_status.add_form:
+  route_name: entity.payment_status.add_form
+  title: 'Add Payment status'
+  appears_on:
+    - entity.payment_status.collection
+
+entity.invoice_status.add_form:
+  route_name: entity.invoice_status.add_form
+  title: 'Add Invoice status'
+  appears_on:
+    - entity.invoice_status.collection
+

@@ -12,7 +12,7 @@ restaurant_orders.restaurant_tax.*:
       type: string
       label: 'description'
     tax_type:
-      type: label
+      type: string
       label: 'Tax Type'
     percent:
       type: float

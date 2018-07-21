@@ -21,3 +21,30 @@ entity.invoice_type.collection:
   parent: system.admin_structure
   weight: 99
 
+
+# Payment menu items definition
+entity.payment.collection:
+  title: 'Payment'
+  route_name: entity.payment.collection
+  description: 'List Payment (bundles)'
+  parent: system.admin_structure
+  weight: 99
+
+
+# Payment status menu items definition
+entity.payment_status.collection:
+  title: 'Payment status'
+  route_name: entity.payment_status.collection
+  description: 'List Payment status (bundles)'
+  parent: system.admin_structure
+  weight: 99
+
+
+# Invoice status menu items definition
+entity.invoice_status.collection:
+  title: 'Invoice status'
+  route_name: entity.invoice_status.collection
+  description: 'List Invoice status (bundles)'
+  parent: system.admin_structure
+  weight: 99
+

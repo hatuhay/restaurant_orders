@@ -39,18 +39,19 @@ class RestaurantSettingsForm extends ConfigFormBase {
 
     $currency_options = \Drupal::service('currency.form_helper')->getCurrencyOptions();
     reset($currency_options);
-    $form['restaurant_orders_settings']["currency"] = [
+    $form["currency"] = [
       '#type' => 'select',
       '#title' => $this->t('Default Currency'),
       '#options' => \Drupal::service('currency.form_helper')->getCurrencyOptions(),
-      '#default_value' => key($currency_options),
+      '#default_value' => $config->get('currency'),
       '#required' => TRUE,
     ];
     $tax_options = RestaurantHelper::TaxOptions();
-    $form['restaurant_orders_settings']["tax"] = array(
+    $form["tax"] = array(
       '#type' => 'select',
       '#options' => $tax_options,
       '#title' => $this->t('Tax'),
+      '#default_value' => $config->get('tax'),
       '#maxlength' => 255,
       '#description' => $this->t("The default tax."),
       '#required' => TRUE,
@@ -58,6 +59,23 @@ class RestaurantSettingsForm extends ConfigFormBase {
 
     return parent::buildForm($form, $form_state);
   }
+
+  /** 
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+      // Retrieve the configuration
+       $this->configFactory->getEditable('restaurant_orders.settings')
+      // Set the submitted configuration setting
+      ->set('currency', $form_state->getValue('currency'))
+      // You can set multiple configurations at once by making
+      // multiple calls to set()
+      ->set('tax', $form_state->getValue('tax'))
+      ->save();
+
+    parent::submitForm($form, $form_state);
+  }
+
 
   /** 
    * {@inheritdoc}

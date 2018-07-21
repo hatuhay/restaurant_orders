@@ -1,0 +1,9 @@
+uuid: 65c0be23-5d6d-493d-94f8-d4ca11d24eae
+langcode: es
+status: true
+dependencies: {  }
+id: igv
+label: IGV
+description: 'Impuesto General a las Ventas'
+tax_type: value_added
+percent: 0.18

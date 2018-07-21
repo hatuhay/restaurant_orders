@@ -3,3 +3,6 @@ type: module
 description: 'Restaurant ordering system'
 core: 8.x
 package: 'Restaurant'
+dependencies:
+  - currency
+  - views

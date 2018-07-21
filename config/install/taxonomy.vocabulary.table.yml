@@ -1,0 +1,9 @@
+uuid: 5502e56a-1453-4468-bec6-d778b071dd3c
+langcode: zxx
+status: true
+dependencies: {  }
+name: Table
+vid: table
+description: 'Restaurant Tables'
+hierarchy: 0
+weight: 0

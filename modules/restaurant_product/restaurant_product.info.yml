@@ -3,3 +3,5 @@ type: module
 description: 'Product used for restaurants'
 core: 8.x
 package: 'Restaurant'
+dependencies:
+  - restaurant_orders

@@ -1,0 +1,7 @@
+system.admin_restaurant:
+  path: '/admin/restaurant'
+  defaults:
+    _form: '\Drupal\restaurant_orders\Form\RestaurantSettingsForm'
+    _title: 'Restaurant Settings'
+  requirements:
+    _permission: 'administer site configuration'

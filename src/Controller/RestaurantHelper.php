@@ -35,4 +35,15 @@ class RestaurantHelper extends ControllerBase {
     return $tax_options;
   }
 
+    /**
+   * {@inheritdoc}
+   */
+  public static function EntityConfigOptions($config_type) {
+    $types = \Drupal::entityTypeManager()->getStorage($config_type)->loadMultiple();
+    foreach($types as $id => $type) {
+      $options[$id] = $type->label();
+    } 
+    return $options;
+  }
+
 }
