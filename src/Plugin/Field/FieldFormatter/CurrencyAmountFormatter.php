@@ -6,8 +6,8 @@ use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\NumericFormatterBase;
-use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface
-use Drupal\restaurant_orders\Controller\CurrencyHelper
+use Drupal\currency\Plugin\Currency\AmountFormatter\AmountFormatterInterface;
+use Drupal\restaurant_orders\Controller\CurrencyHelper;
 
 /**
  * Plugin implementation of the 'currency_amount' formatter.

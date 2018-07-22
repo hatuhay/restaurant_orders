@@ -10,3 +10,21 @@ entity.restaurant_tax.add_form:
   appears_on:
     - entity.restaurant_tax.collection
 
+entity.reataurant_table.add_form:
+  route_name: entity.reataurant_table.add_form
+  title: 'Add Table'
+  appears_on:
+    - entity.reataurant_table.collection
+
+entity.restaurant_table_zone.add_form:
+  route_name: entity.restaurant_table_zone.add_form
+  title: 'Add Table zone'
+  appears_on:
+    - entity.restaurant_table_zone.collection
+
+entity.restaurant_zone.add_form:
+  route_name: entity.restaurant_zone.add_form
+  title: 'Add Zone'
+  appears_on:
+    - entity.restaurant_zone.collection
+

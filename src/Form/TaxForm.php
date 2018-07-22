@@ -38,7 +38,7 @@ class TaxForm extends EntityForm {
 
     $form['tax_type'] = array(
       '#type' => 'select',
-      '#options' => $tax_options,
+      '#options' => RestaurantHelper::EntityConfigOptions('tax_type'),
       '#title' => $this->t('Tax Type'),
       '#maxlength' => 255,
       '#default_value' => $restaurant_tax->get(tax_type),

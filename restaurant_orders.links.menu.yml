@@ -1,4 +1,12 @@
 
+# Settings form
+system.admin_restaurant:
+  title: 'Restaurant'
+  route_name: system.admin_restaurant
+  description: 'Restaurant settings form'
+  parent: system.admin
+  weight: 99
+ 
 # Tax type menu items definition
 entity.restaurant_tax_type.collection:
   title: 'Tax type'
@@ -16,11 +24,29 @@ entity.restaurant_tax.collection:
   parent: system.admin_restaurant
   weight: 99
 
-# Settings form
-system.admin_restaurant:
-  title: 'Restaurant'
-  route_name: system.admin_restaurant
-  description: 'Restaurant settings form'
-  parent: system.admin
+# Table menu items definition
+entity.restaurant_table.collection:
+  title: 'Table'
+  route_name: entity.restaurant_table.collection
+  description: 'List Table (bundles)'
+  parent: system.admin_restaurant
   weight: 99
- 
+
+
+# Table zone menu items definition
+entity.restaurant_table_zone.collection:
+  title: 'Table zone'
+  route_name: entity.restaurant_table_zone.collection
+  description: 'List Table zone (bundles)'
+  parent: entity.restaurant_table.collection
+  weight: 99
+
+
+# Zone menu items definition
+entity.restaurant_zone.collection:
+  title: 'Zone'
+  route_name: entity.restaurant_zone.collection
+  description: 'List Zone (bundles)'
+  parent: system.admin_restaurant
+  weight: 99
+

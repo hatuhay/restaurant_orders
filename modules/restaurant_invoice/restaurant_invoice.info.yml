@@ -7,4 +7,4 @@ dependencies:
   - restaurant_line_item
   - restaurant_orders
   - restaurant_customer
-  - Restaurant_product
+  - restaurant_product

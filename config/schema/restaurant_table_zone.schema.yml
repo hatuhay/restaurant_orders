@@ -1,0 +1,12 @@
+restaurant_orders.restaurant_table_zone.*:
+  type: config_entity
+  label: 'Table zone config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

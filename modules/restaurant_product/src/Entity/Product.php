@@ -237,6 +237,25 @@ class Product extends ContentEntityBase implements ProductInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['zone'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Restaurant Zone'))
+      ->setSetting('target_type', 'restaurant_zone')
+      ->setSetting('handler', 'default')
+      ->setReadOnly(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'weight' => -3,
+        'settings' => [
+          'link' => FALSE,
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => -3,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
       ->setDescription(t('A boolean indicating whether the Product is published.'))

@@ -279,6 +279,26 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
         'weight' => -3,
       ]);
 
+    $fields['notes'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Note'))
+      ->setDescription(t('Any special note on line item.'))
+      ->setSettings([
+        'max_length' => 50,
+        'text_processing' => 0,
+      ])
+      ->setDefaultValue('')
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'string',
+        'weight' => -4,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'string_textfield',
+        'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE)
+
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
       ->setDescription(t('A boolean indicating whether the Line item is published.'))
