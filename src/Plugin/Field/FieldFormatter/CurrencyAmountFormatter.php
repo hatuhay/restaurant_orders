@@ -32,8 +32,9 @@ class CurrencyAmountFormatter extends NumericFormatterBase {
    * {@inheritdoc}
    */
   protected function numberFormat($number) {
-    $currency = CurrencyHelper::getDefaultEntityCurrency();
-    return AmountFormatterInterface::formatAmount($currency, $number);
+    $currency = CurrencyHelper::getDefaultCurrency();
+    $amount = new AmountFormatterInterface();
+    return $amount->formatAmount($currency, $number);
   }
 
 }

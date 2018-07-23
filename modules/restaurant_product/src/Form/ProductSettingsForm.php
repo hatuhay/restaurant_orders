@@ -6,7 +6,7 @@ use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class ProductSettingsForm.
+ * Class LineItemSettingsForm.
  *
  * @ingroup restaurant_product
  */
@@ -46,7 +46,7 @@ class ProductSettingsForm extends FormBase {
    *   Form definition array.
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['product_settings']['#markup'] = 'Settings form for product. Manage field settings here.';
+    $form['product_settings']['#markup'] = 'Settings form for Product entities. Manage field settings here.';
     return $form;
   }
 

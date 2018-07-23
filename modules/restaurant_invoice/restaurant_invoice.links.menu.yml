@@ -4,21 +4,21 @@ entity.restaurant_invoice.collection:
   title: 'Invoice list'
   route_name: entity.restaurant_invoice.collection
   description: 'List Invoice entities'
-  parent: system.admin_structure
+  parent: system.admin_restaurant
   weight: 100
 
 restaurant_invoice.admin.structure.settings:
   title: 'Invoice settings'
   description: 'Configure Invoice entities'
   route_name: restaurant_invoice.settings
-  parent: system.admin_structure
+  parent: entity.restaurant_invoice.collection
 
 # Invoice type menu items definition
 entity.invoice_type.collection:
   title: 'Invoice type'
   route_name: entity.invoice_type.collection
   description: 'List Invoice type (bundles)'
-  parent: system.admin_structure
+  parent: entity.restaurant_invoice.collection
   weight: 99
 
 
@@ -27,7 +27,7 @@ entity.payment.collection:
   title: 'Payment'
   route_name: entity.payment.collection
   description: 'List Payment (bundles)'
-  parent: system.admin_structure
+  parent: system.admin_restaurant
   weight: 99
 
 
@@ -36,7 +36,7 @@ entity.payment_status.collection:
   title: 'Payment status'
   route_name: entity.payment_status.collection
   description: 'List Payment status (bundles)'
-  parent: system.admin_structure
+  parent: entity.payment.collection
   weight: 99
 
 
@@ -45,6 +45,6 @@ entity.invoice_status.collection:
   title: 'Invoice status'
   route_name: entity.invoice_status.collection
   description: 'List Invoice status (bundles)'
-  parent: system.admin_structure
+  parent: entity.restaurant_invoice.collection
   weight: 99
 

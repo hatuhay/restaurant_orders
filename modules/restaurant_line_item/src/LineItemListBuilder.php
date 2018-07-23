@@ -31,8 +31,8 @@ class LineItemListBuilder extends EntityListBuilder {
     $row['id'] = $entity->id();
     $row['name'] = Link::createFromRoute(
       $entity->label(),
-      'entity.line_item.edit_form',
-      ['line_item' => $entity->id()]
+      'entity.restaurant_line_item.edit_form',
+      ['restaurant_line_item' => $entity->id()]
     );
     return $row + parent::buildRow($entity);
   }

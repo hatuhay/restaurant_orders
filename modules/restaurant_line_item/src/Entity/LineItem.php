@@ -15,7 +15,7 @@ use Drupal\user\UserInterface;
  * @ingroup restaurant_line_item
  *
  * @ContentEntityType(
- *   id = "line_item",
+ *   id = "restaurant_line_item",
  *   label = @Translation("Line item"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
@@ -33,7 +33,7 @@ use Drupal\user\UserInterface;
  *       "html" = "Drupal\restaurant_line_item\LineItemHtmlRouteProvider",
  *     },
  *   },
- *   base_table = "line_item",
+ *   base_table = "restaurant_line_item",
  *   admin_permission = "administer line item entities",
  *   entity_keys = {
  *     "id" = "id",
@@ -45,13 +45,13 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/line_item/{line_item}",
- *     "add-form" = "/admin/structure/line_item/add",
- *     "edit-form" = "/admin/structure/line_item/{line_item}/edit",
- *     "delete-form" = "/admin/structure/line_item/{line_item}/delete",
- *     "collection" = "/admin/structure/line_item",
+ *     "canonical" = "/admin/structure/restaurant_line_item/{line_item}",
+ *     "add-form" = "/admin/structure/restaurant_line_item/add",
+ *     "edit-form" = "/admin/structure/restaurant_line_item/{line_item}/edit",
+ *     "delete-form" = "/admin/structure/restaurant_line_item/{line_item}/delete",
+ *     "collection" = "/admin/structure/restaurant_line_item",
  *   },
- *   field_ui_base_route = "line_item.settings"
+ *   field_ui_base_route = "restaurant_line_item.settings"
  * )
  */
 class LineItem extends ContentEntityBase implements LineItemInterface {
@@ -175,24 +175,6 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['invoice'] = BaseFieldDefinition::create('entity_reference')
-      ->setLabel(t('Invoice'))
-      ->setSetting('target_type', 'restaurant_invoice')
-      ->setSetting('handler', 'default')
-      ->setTranslatable(FALSE)
-      ->setDisplayOptions('view', [
-        'label' => 'hidden',
-        'type' => 'entity_reference_label',
-        'weight' => 0,
-        'settings' => [
-          'link' => TRUE,
-        ],
-      ])
-      ->setDisplayOptions('form', [
-        'type' => 'options_select',
-        'weight' => 5,
-      ])
-
     $fields['product'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Product'))
       ->setRevisionable(FALSE)
@@ -213,7 +195,7 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
           'autocomplete_type' => 'tags',
           'placeholder' => '',
         ],
-      ])
+      ]);
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
@@ -297,7 +279,7 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
         'weight' => -4,
       ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))

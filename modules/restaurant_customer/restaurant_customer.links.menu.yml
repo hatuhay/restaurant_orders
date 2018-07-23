@@ -4,7 +4,7 @@ entity.restaurant_customer.collection:
   title: 'Customer list'
   route_name: entity.restaurant_customer.collection
   description: 'List Customer entities'
-  parent: system.admin_structure
+  parent: system.admin_restaurant
   weight: 100
 
 
@@ -13,6 +13,6 @@ entity.restaurant_customer_type.collection:
   title: 'Customer type'
   route_name: entity.restaurant_customer_type.collection
   description: 'List Customer type (bundles)'
-  parent: system.admin_structure
+  parent: entity.restaurant_customer.collection
   weight: 99
 
