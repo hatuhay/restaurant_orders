@@ -1,0 +1,6 @@
+uuid: 5b234123-2e16-4497-a7d8-f3c284f72b7c
+langcode: es
+status: true
+dependencies: {  }
+id: payed
+label: Pagada

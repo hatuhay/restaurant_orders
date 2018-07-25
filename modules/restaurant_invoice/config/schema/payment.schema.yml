@@ -8,7 +8,7 @@ restaurant_invoice.payment.*:
     label:
       type: label
       label: 'Label'
-    tax_type:
+    default_status:
       type: string
       label: 'Default Payment Status'
     uuid:

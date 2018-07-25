@@ -1,0 +1,6 @@
+uuid: fa6e38cf-9c58-4912-8e14-ef2882a2dd42
+langcode: es
+status: true
+dependencies: {  }
+id: factura
+label: Factura

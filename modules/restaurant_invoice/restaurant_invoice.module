@@ -22,3 +22,12 @@ function restaurant_invoice_help($route_name, RouteMatchInterface $route_match) 
     default:
   }
 }
+
+function restaurant_invoice_theme($existing, $type, $theme, $path) {
+  return [
+    'tables' => [
+      'variables' => ['tables' => NULL, 'zones' => NULL],
+    ],
+  ];
+}
+

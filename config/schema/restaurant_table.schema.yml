@@ -1,4 +1,4 @@
-restaurant_orders.reataurant_table.*:
+restaurant_orders.restaurant_table.*:
   type: config_entity
   label: 'Table config'
   mapping:

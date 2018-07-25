@@ -1,0 +1,7 @@
+uuid: 1babbc5a-f3c7-4f8c-a02a-b01c7c608489
+langcode: es
+status: true
+dependencies: {  }
+id: mesa_1
+label: 'Mesa 1'
+table_zone: salon

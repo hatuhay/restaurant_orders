@@ -1,0 +1,7 @@
+uuid: c05a2907-84f2-4108-955c-19c82caef3c0
+langcode: es
+status: true
+dependencies: {  }
+id: credit_card
+label: 'Tarjeta de Crédito'
+default_status: payed

@@ -64,6 +64,8 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
     parent::preCreate($storage_controller, $values);
     $values += [
       'user_id' => \Drupal::currentUser()->id(),
+      'table' => \Drupal::request()->query->get('table'),
+      'payment_date' => date('Y-m-d H:i:s'),
     ];
   }
 
@@ -122,6 +124,69 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
   /**
    * {@inheritdoc}
    */
+  public function getCurrency() {
+    return $this->get('currency')->entity;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setCurrencyCode($currency_code) {
+    $this->set('currency', $currency_code);
+
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCurrencyCode() {
+    return $this->get('currency')->target_id;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLineItems() {
+    $line_items = [];
+    foreach ($this->get('line_items') as $field_item) {
+      $line_item = $field_item->getContainedPluginInstance();
+      if ($line_item) {
+        $line_items[$line_item->getName()] = $line_item;
+      }
+    }
+
+    return $line_items;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getLineItem($name) {
+    $line_items = $this->getLineItems();
+    foreach ($line_items as $delta => $line_item) {
+      if ($line_item->getName() == $name) {
+        return $line_item;
+      }
+    }
+    return NULL;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAmount() {
+    $total = 0;
+    foreach ($this->getLineItems() as $line_item) {
+      $total = bcadd($total, $line_item->getAmount(), 6);
+    }
+
+    return $total;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setOwner(UserInterface $account) {
     $this->set('user_id', $account->id());
     return $this;
@@ -162,7 +227,7 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
-        'weight' => 5,
+        'weight' => 0,
         'settings' => [
           'match_operator' => 'CONTAINS',
           'size' => '60',
@@ -184,11 +249,11 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
-        'weight' => -4,
+        'weight' => 1,
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => -4,
+        'weight' => 1,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE)
@@ -202,14 +267,14 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'entity_reference_label',
-        'weight' => 0,
+        'weight' => 4,
         'settings' => [
           'link' => TRUE,
         ],
       ])
       ->setDisplayOptions('form', [
         'type' => 'options_buttons',
-        'weight' => 5,
+        'weight' => 4,
       ]);
 
     $fields['customer'] = BaseFieldDefinition::create('entity_reference')
@@ -220,7 +285,7 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setTranslatable(TRUE)
       ->setDisplayOptions('view', [
         'label' => 'hidden',
-        'weight' => 0,
+        'weight' => 5,
       ])
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
@@ -239,18 +304,19 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setLabel(t('Line Item'))
       ->setSetting('target_type', 'restaurant_line_item')
       ->setSetting('handler', 'default')
+      ->setSetting('cardinality', '-1')
       ->setTranslatable(FALSE)
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'entity_reference_label',
-        'weight' => 0,
+        'weight' => 50,
         'settings' => [
           'link' => TRUE,
         ],
       ])
       ->setDisplayOptions('form', [
         'type' => 'inline_entity_form_simple',
-        'weight' => 5,
+        'weight' => 50,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
@@ -264,14 +330,14 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'entity_reference_label',
-        'weight' => 0,
+        'weight' => 8,
         'settings' => [
           'link' => FALSE,
         ],
       ])
       ->setDisplayOptions('form', [
         'type' => 'options_select',
-        'weight' => 5,
+        'weight' => 8,
       ]);
 
     $fields['payment'] = BaseFieldDefinition::create('entity_reference')
@@ -280,14 +346,14 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setSetting('handler', 'default')
       ->setTranslatable(FALSE)
       ->setDisplayOptions('view', [
-        'weight' => 0,
+        'weight' => 60,
         'settings' => [
           'link' => FALSE,
         ],
       ])
       ->setDisplayOptions('form', [
         'type' => 'options_select',
-        'weight' => 5,
+        'weight' => 60,
       ]);
 
     $fields['status'] = BaseFieldDefinition::create('entity_reference')
@@ -296,14 +362,14 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setSetting('handler', 'default')
       ->setTranslatable(FALSE)
       ->setDisplayOptions('view', [
-        'weight' => 0,
+        'weight' => 65,
         'settings' => [
           'link' => FALSE,
         ],
       ])
       ->setDisplayOptions('form', [
         'type' => 'options_select',
-        'weight' => 5,
+        'weight' => 65,
       ]);
 
     $fields['currency'] = BaseFieldDefinition::create('entity_reference')
@@ -315,14 +381,14 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'currency_sign',
-        'weight' => -3,
+        'weight' => 10,
         'settings' => [
           'link' => FALSE,
         ],
       ])
       ->setDisplayOptions('form', [
         'type' => 'options_select',
-        'weight' => -3,
+        'weight' => 10,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
@@ -338,10 +404,10 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'currency_amount',
-        'weight' => -4,
+        'weight' => 15,
       ])
       ->setDisplayOptions('form', [
-        'weight' => -4,
+        'weight' => 15,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
@@ -357,10 +423,10 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('view', [
         'label' => 'hidden',
         'type' => 'currency_amount',
-        'weight' => -4,
+        'weight' => 14,
       ])
       ->setDisplayOptions('form', [
-        'weight' => -4,
+        'weight' => 14,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
@@ -376,11 +442,11 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
-        'weight' => -4,
+        'weight' => 20,
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => -4,
+        'weight' => 20,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
@@ -388,21 +454,23 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
     $fields['payment_date'] = BaseFieldDefinition::create('datetime')
       ->setLabel(t('Payment Date'))
       ->setDescription(t('Payment date.'))
+      ->setDefaultValueCallback('Drupal\restaurant_orders\Controller\CurrencyHelper::getDefaultCurrency')
       ->setSettings([
         'datetime_type' => 'date',
         'text_processing' => 0,
+        'default_value_input' => 'now',
       ])
       ->setDefaultValue('')
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'datetime_default',
-        'weight' => -4,
+        'weight' => 25,
         'settings' => [
         ],
       ])
       ->setDisplayOptions('form', [
         'type' => 'datetime_default',
-        'weight' => -4,
+        'weight' => 25,
         'settings' => [
           'format_type' => 'html_date',
         ],
@@ -421,11 +489,11 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('view', [
         'label' => 'above',
         'type' => 'string',
-        'weight' => -4,
+        'weight' => 100,
       ])
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
-        'weight' => -4,
+        'weight' => 100,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);

@@ -1,0 +1,7 @@
+restaurant_invoice.tables:
+  path: '/admin/restaurant/table_order'
+  defaults:
+    _controller: '\Drupal\restaurant_invoice\Controller\TableOrderController::tables'
+    _title: 'Restaurant Order'
+  requirements:
+    _permission: 'access content'

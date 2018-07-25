@@ -1,0 +1,22 @@
+{#
+/**
+ * @file restaurant_invoice.html.twig
+ * Default theme implementation to present Invoice data.
+ *
+ * This template is used when viewing Invoice pages.
+ *
+ *
+ * Available variables:
+ * - tables: A list of available tables
+ * - zones: A list of zones where tables are located.
+ *
+ * @see template_preprocess_restaurant_invoice()
+ *
+ * @ingroup themeable
+ */
+#}
+<div class ="tables">
+    {% for table in tables %}
+        <div class="table-unit" data-table="{{table.id}}">{{ table.label }}</div>
+    {% endfor %}
+</div>

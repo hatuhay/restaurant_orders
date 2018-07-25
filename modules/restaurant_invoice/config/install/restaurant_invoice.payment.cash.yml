@@ -1,0 +1,7 @@
+uuid: 03205064-729b-449e-8798-1d847d94616d
+langcode: es
+status: true
+dependencies: {  }
+id: cash
+label: Efectivo
+default_status: payed

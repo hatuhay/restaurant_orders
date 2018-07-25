@@ -1,0 +1,6 @@
+uuid: 95a471ed-6f24-4d9b-b961-d6597e0a240e
+langcode: es
+status: true
+dependencies: {  }
+id: boleta
+label: Boleta

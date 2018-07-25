@@ -35,7 +35,7 @@ class RestaurantHelper extends ControllerBase {
     return $tax_options;
   }
 
-    /**
+  /**
    * {@inheritdoc}
    */
   public static function EntityConfigOptions($config_type) {

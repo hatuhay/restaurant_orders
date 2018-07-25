@@ -4,6 +4,7 @@ namespace Drupal\restaurant_orders\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\restaurant_orders\Controller\RestaurantHelper;
 
 /**
  * Class TableForm.
@@ -16,28 +17,28 @@ class TableForm extends EntityForm {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
 
-    $reataurant_table = $this->entity;
+    $restaurant_table = $this->entity;
     $form['label'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Label'),
       '#maxlength' => 255,
-      '#default_value' => $reataurant_table->label(),
+      '#default_value' => $restaurant_table->label(),
       '#description' => $this->t("Label for the Table."),
       '#required' => TRUE,
     ];
 
     $form['id'] = [
       '#type' => 'machine_name',
-      '#default_value' => $reataurant_table->id(),
+      '#default_value' => $restaurant_table->id(),
       '#machine_name' => [
         'exists' => '\Drupal\restaurant_orders\Entity\Table::load',
       ],
-      '#disabled' => !$reataurant_table->isNew(),
+      '#disabled' => !$restaurant_table->isNew(),
     ];
 
     $form['table_zone'] = array(
       '#type' => 'select',
-      '#options' => RestaurantHelper::EntityConfigOptions('table_zone'),
+      '#options' => RestaurantHelper::EntityConfigOptions('restaurant_table_zone'),
       '#title' => $this->t('Table Zone'),
       '#maxlength' => 255,
       '#default_value' => $restaurant_table->get(table_zone),

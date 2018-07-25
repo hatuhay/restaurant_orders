@@ -1,0 +1,7 @@
+uuid: c7e7a5ae-496a-4ce2-8cd2-38d159a8a842
+langcode: es
+status: true
+dependencies: {  }
+id: deposit
+label: 'Depósito en Cuenta / Transferencia'
+default_status: credit

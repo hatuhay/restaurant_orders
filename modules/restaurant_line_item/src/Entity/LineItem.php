@@ -115,6 +115,15 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
   /**
    * {@inheritdoc}
    */
+  public function getAmount() {
+    $price = $this->get('price');
+    $quantity = $this->get('quantity');
+    return bcmul($price, $quantity, 2);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function setOwnerId($uid) {
     $this->set('user_id', $uid);
     return $this;

@@ -1,0 +1,6 @@
+uuid: c9d9aa53-a906-4434-b43a-f6e23113f9be
+langcode: es
+status: true
+dependencies: {  }
+id: unpayed
+label: 'Sin pago'

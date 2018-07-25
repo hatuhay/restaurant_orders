@@ -29,22 +29,30 @@ class CurrencyHelper extends ControllerBase {
    * Check.
    */
   public static function getDefaultCurrency() {
-    $currency_id = ( null !== \Drupal::config('restaurant_orders.settings')->get('currency') ) ? \Drupal::config('restaurant_orders.settings')->get('currency') : 'XXX';
+    $currency_id = \Drupal::config('restaurant_orders.settings')->get('currency');
     return self::getCurrency($currency_id);
+  }
+
+  /**
+   * Check.
+   */
+  public static function getDefaultCurrencyCode() {
+    $currency = self::getDefaultCurrency();
+    return $currency->getCurrencyCode();
+  }
+
+  /**
+   * Check.
+   */
+  public static function getDefaultCurrencySign() {
+    $currency = self::getDefaultCurrency();
+    return $currency->getCurrencySign();
   }
 
   /** 
    * Get Entity Currency
    */
   public static function getCurrency($currency_id) {
-    return \Drupal::entityTypeManager()->getStorage("currency")->load($currency_id);
-  }
-
-  /** 
-   * Get Entity Currency
-   */
-  public static function getDefaultEntityCurrency() {
-    $currency_id = self::getDefaultCurrency();
     return \Drupal::entityTypeManager()->getStorage("currency")->load($currency_id);
   }
 

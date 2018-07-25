@@ -44,7 +44,7 @@ class LineItemForm extends ContentEntityForm {
           '%label' => $entity->label(),
         ]));
     }
-    $form_state->setRedirect('entity.line_item.canonical', ['line_item' => $entity->id()]);
+    $form_state->setRedirect('entity.restaurant_line_item.canonical', ['restaurant_line_item' => $entity->id()]);
   }
 
 }
