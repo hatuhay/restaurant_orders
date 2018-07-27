@@ -27,6 +27,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "label",
+ *     "table_zone" = "table_zone",
  *     "uuid" = "uuid"
  *   },
  *   links = {
@@ -55,10 +56,70 @@ class Table extends ConfigEntityBase implements TableInterface {
   protected $label;
 
   /**
-   * The Tax type.
+   * The table zone.
    *
    * @var string
    */
   protected $table_zone;
+
+  /**
+   * The shape of the table.
+   *
+   * @var string
+   */
+  protected $shape;
+
+  /**
+   * The left position.
+   *
+   * @var string
+   */
+  protected $left;
+
+  /**
+   * The table zone.
+   *
+   * @var string
+   */
+  protected $right;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function tableZone() {
+    return $this->get('table_zone');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function shape() {
+    return $this->get('shape');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setShape($value) {
+    $this->set('shape', $value);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function position() {
+    return [ 
+      'left' => $this->get('left'), 
+      'right' => $this->get('right') 
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPosition($left, $right) {
+    $this->set('left', $left);
+    $this->set('right', $right);
+  }
 
 }

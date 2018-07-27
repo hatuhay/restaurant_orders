@@ -9,5 +9,34 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface TableInterface extends ConfigEntityInterface {
 
-  // Add get/set methods for your configuration properties here.
+/**
+   * Returns the value of the table zone.
+   *
+   */
+  public function tableZone();
+
+/**
+   * Returns the value of the shape.
+   *
+   */
+  public function shape();
+
+/**
+   * Sets the value of the shape.
+   *
+   */
+  public function setShape($value);
+
+/**
+   * Returns an array with left and top coordinates.
+   *
+   */
+  public function position();
+
+/**
+   * Sets de coordinates position of the shape.
+   *
+   */
+  public function setPosition($left, $right);
+
 }

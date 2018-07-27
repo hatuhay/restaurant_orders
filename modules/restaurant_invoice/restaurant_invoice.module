@@ -28,6 +28,10 @@ function restaurant_invoice_theme($existing, $type, $theme, $path) {
     'tables' => [
       'variables' => ['tables' => NULL, 'zones' => NULL],
     ],
+    'invoice_form' => [
+      'variables' => ['form' => NULL ],
+      'render element' => 'form',
+    ],
   ];
 }
 

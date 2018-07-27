@@ -11,5 +11,14 @@ restaurant_orders.restaurant_table.*:
     table_zone:
       type: string
       label: 'Table Zone'
+    shape:
+      type: string
+      label: 'Shape'
+    left:
+      type: string
+      label: 'Left Position'
+    right:
+      type: string
+      label: 'Right Position'
     uuid:
       type: string

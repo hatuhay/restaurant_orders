@@ -44,11 +44,11 @@ use Drupal\user\UserInterface;
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/restaurant_invoice/{restaurant_invoice}",
- *     "add-form" = "/admin/structure/restaurant_invoice/add",
- *     "edit-form" = "/admin/structure/restaurant_invoice/{restaurant_invoice}/edit",
- *     "delete-form" = "/admin/structure/restaurant_invoice/{restaurant_invoice}/delete",
- *     "collection" = "/admin/structure/restaurant_invoice",
+ *     "canonical" = "/restaurant/invoice/{restaurant_invoice}",
+ *     "add-form" = "/admin/restaurant/invoice/add",
+ *     "edit-form" = "/admin/restaurant/invoice/{restaurant_invoice}/edit",
+ *     "delete-form" = "/restaurant/invoice/{restaurant_invoice}/delete",
+ *     "collection" = "/restaurant/invoice",
  *   },
  *   field_ui_base_route = "restaurant_invoice.settings"
  * )
@@ -65,7 +65,7 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
     $values += [
       'user_id' => \Drupal::currentUser()->id(),
       'table' => \Drupal::request()->query->get('table'),
-      'payment_date' => date('Y-m-d H:i:s'),
+      'payment_date' => date('d-m-Y'),
     ];
   }
 
@@ -275,7 +275,9 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('form', [
         'type' => 'options_buttons',
         'weight' => 4,
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['customer'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Customer'))
@@ -338,7 +340,9 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('form', [
         'type' => 'options_select',
         'weight' => 8,
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['payment'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Payment Type'))
@@ -354,7 +358,9 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('form', [
         'type' => 'options_select',
         'weight' => 60,
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['status'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Invoice Status'))
@@ -370,7 +376,9 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayOptions('form', [
         'type' => 'options_select',
         'weight' => 65,
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['currency'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Currency'))
@@ -399,7 +407,7 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDefaultValue(0)
       ->setSettings([
         'precision' => 19,
-        'scale' => 6,
+        'scale' => 2,
       ])
       ->setDisplayOptions('view', [
         'label' => 'hidden',
@@ -418,7 +426,7 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDefaultValue(0)
       ->setSettings([
         'precision' => 19,
-        'scale' => 6,
+        'scale' => 2,
       ])
       ->setDisplayOptions('view', [
         'label' => 'hidden',
@@ -478,7 +486,7 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-    $fields['notes'] = BaseFieldDefinition::create('string')
+    $fields['notes'] = BaseFieldDefinition::create('text_long')
       ->setLabel(t('Note'))
       ->setDescription(t('Any special note on invoice.'))
       ->setSettings([
@@ -492,7 +500,10 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
         'weight' => 100,
       ])
       ->setDisplayOptions('form', [
-        'type' => 'string_textfield',
+        'type' => 'text_textarea',
+        'settings' => array(
+          'rows' => 4,
+        ),
         'weight' => 100,
       ])
       ->setDisplayConfigurable('form', TRUE)

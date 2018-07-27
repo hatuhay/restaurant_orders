@@ -1,7 +1,25 @@
 restaurant_invoice.tables:
-  path: '/admin/restaurant/table_order'
+  path: '/restaurant/order'
   defaults:
     _controller: '\Drupal\restaurant_invoice\Controller\TableOrderController::tables'
     _title: 'Restaurant Order'
   requirements:
-    _permission: 'access content'
+    _permission: 'access invoice table form'
+restaurant_invoice.add_form:
+  path: '/restaurant/invoice/add'
+  defaults:
+    _controller: '\Drupal\restaurant_invoice\Controller\InvoiceController::add'
+    _title: 'Restaurant Invoice'
+  options:
+    _admin_route: FALSE
+  requirements:
+    _permission: 'access invoice table form'
+restaurant_invoice.edit_form:
+  path: '/restaurant/invoice/{entity}/edit'
+  defaults:
+    _controller: '\Drupal\restaurant_invoice\Controller\InvoiceController::edit'
+    _title: 'Restaurant Invoice'
+  options:
+    _admin_route: FALSE
+  requirements:
+    _permission: 'access invoice table form'

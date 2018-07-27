@@ -12,8 +12,17 @@ delete invoice entities:
 edit invoice entities:
   title: 'Edit Invoice entities'
 
+edit own invoice entities:
+  title: 'Edit own Invoice entities'
+
 view published invoice entities:
   title: 'View published Invoice entities'
 
+view own published invoice entities:
+  title: 'View own published Invoice entities'
+
 view unpublished invoice entities:
   title: 'View unpublished Invoice entities'
+
+access invoice table form:
+  title: 'Access invoice table form'

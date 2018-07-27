@@ -16,6 +16,7 @@ class TableListBuilder extends ConfigEntityListBuilder {
   public function buildHeader() {
     $header['label'] = $this->t('Table');
     $header['id'] = $this->t('Machine name');
+    $header['table_zone'] = $this->t('Table zone');
     return $header + parent::buildHeader();
   }
 
@@ -25,7 +26,7 @@ class TableListBuilder extends ConfigEntityListBuilder {
   public function buildRow(EntityInterface $entity) {
     $row['label'] = $entity->label();
     $row['id'] = $entity->id();
-    // You probably want a few more properties here...
+    $row['table_zone'] = $entity->tableZone();
     return $row + parent::buildRow($entity);
   }
 

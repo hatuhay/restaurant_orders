@@ -1,0 +1,190 @@
+uuid: 5e9e2b44-71bc-4bf6-9238-997213f520b8
+langcode: es
+status: true
+dependencies:
+  module:
+    - datetime
+    - field_group
+    - inline_entity_form
+    - restaurant_invoice
+third_party_settings:
+  field_group:
+    group_datos_de_documento:
+      children:
+        - type
+        - name
+        - table
+        - customer
+        - currency
+        - user_id
+        - payment
+        - payment_reference
+        - payment_date
+        - tax_amount
+        - amount
+        - status
+      parent_name: group_wrapper
+      weight: 0
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: col-sm-6
+        element: div
+        show_label: false
+        label_element: h3
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Datos de Documento'
+    group_datos_de_pedido:
+      children:
+        - line_item
+        - notes
+      parent_name: group_wrapper
+      weight: 1
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: col-sm-6
+        element: div
+        show_label: false
+        label_element: h3
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Datos de Pedido'
+    group_wrapper:
+      children:
+        - group_datos_de_documento
+        - group_datos_de_pedido
+      parent_name: group_datos_de_documento
+      weight: 11
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: row
+        element: div
+        show_label: false
+        label_element: h3
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: Wrapper
+id: restaurant_invoice.restaurant_invoice.default
+targetEntityType: restaurant_invoice
+bundle: restaurant_invoice
+mode: default
+content:
+  amount:
+    weight: 15
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  currency:
+    type: options_select
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  customer:
+    type: entity_reference_autocomplete
+    weight: 7
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+  line_item:
+    type: inline_entity_form_complex
+    weight: 9
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  notes:
+    type: string_textfield
+    weight: 10
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  payment:
+    type: options_select
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  payment_date:
+    type: datetime_default
+    weight: 13
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  payment_reference:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: options_select
+    weight: 16
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  table:
+    type: options_select
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  tax_amount:
+    weight: 14
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  type:
+    type: options_buttons
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 9
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden:
+  langcode: true

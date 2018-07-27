@@ -13,13 +13,31 @@ class TableOrderController extends ControllerBase {
    * Tables.
    *
    * @return array
-   *   Return Tables.
+   *   Return Theme.
    */
   public function tables() {
     return [
       '#theme' => 'tables',
-      '#tables' => \Drupal::entityTypeManager()->getStorage('restaurant_table')->loadMultiple(),
-      '#zones' => [],
+      '#tables' => self::getTables(),
+      '#zones' => \Drupal::entityTypeManager()->getStorage('restaurant_table_zone')->loadMultiple(),
     ];
+  }
+
+  /**
+   * Tables.
+   *
+   * @return array
+   *   Return Tables formated.
+   */
+  protected function getTables() {
+    $tables = \Drupal::entityTypeManager()->getStorage('restaurant_table')->loadMultiple();
+    foreach($tables as $table) {
+      $result[$table->id()] = [ 
+        'id' => $table->id(),
+        'label' => $table->label(),
+        'zone' => $table->tableZone(),
+      ];
+    }
+    return $result;
   }
 }

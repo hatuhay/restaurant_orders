@@ -19,15 +19,29 @@ class InvoiceAccessControlHandler extends EntityAccessControlHandler {
    */
   protected function checkAccess(EntityInterface $entity, $operation, AccountInterface $account) {
     /** @var \Drupal\restaurant_invoice\Entity\InvoiceInterface $entity */
+    // Fetch information from the node object if possible.
+
+    $status = $entity->isPublished();
+    $uid = $entity->getOwnerId();
+
     switch ($operation) {
+
       case 'view':
         if (!$entity->isPublished()) {
           return AccessResult::allowedIfHasPermission($account, 'view unpublished invoice entities');
         }
-        return AccessResult::allowedIfHasPermission($account, 'view published invoice entities');
+        elseif (AccessResult::allowedIfHasPermission($account, 'view published invoice entities')){
+          return TRUE;
+        } else {
+          return (!$status && $account->hasPermission('view own published invoice entities') && $account->isAuthenticated() && $account->id() == $uid);
+        }
 
       case 'update':
-        return AccessResult::allowedIfHasPermission($account, 'edit invoice entities');
+        if (AccessResult::allowedIfHasPermission($account, 'edit invoice entities')){
+          return TRUE;
+        } else {
+          return (!$status && $account->hasPermission('edit own invoice entities') && $account->isAuthenticated() && $account->id() == $uid);
+        }
 
       case 'delete':
         return AccessResult::allowedIfHasPermission($account, 'delete invoice entities');
