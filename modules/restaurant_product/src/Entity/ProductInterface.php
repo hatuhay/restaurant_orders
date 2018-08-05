@@ -35,6 +35,14 @@ interface ProductInterface extends ContentEntityInterface, EntityChangedInterfac
   public function setName($name);
 
   /**
+   * Gets the Product price.
+   *
+   * @return float
+   *   Price of the Product.
+   */
+  public function getPrice();
+
+  /**
    * Gets the Product creation timestamp.
    *
    * @return int

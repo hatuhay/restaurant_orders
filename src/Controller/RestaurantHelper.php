@@ -19,9 +19,9 @@ class RestaurantHelper extends ControllerBase {
   public static function TaxTypeOptions() {
     $tax_types = \Drupal::entityTypeManager()->getStorage('restaurant_tax_type')->loadMultiple();
     foreach($tax_types as $id => $tax) {
-      $tax_options[$id] = $tax->label();
+      $tax_type_options[$id] = $tax->label();
     } 
-    return $tax_options;
+    return $tax_type_options;
   }
 
   /**
@@ -42,6 +42,17 @@ class RestaurantHelper extends ControllerBase {
     $types = \Drupal::entityTypeManager()->getStorage($config_type)->loadMultiple();
     foreach($types as $id => $type) {
       $options[$id] = $type->label();
+    } 
+    return $options;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function EntityOptions($entity_type) {
+    $entities = entity_load_multiple($entity_type);
+    foreach($entities as $id => $entity) {
+      $options[$id] = $entity->getName();
     } 
     return $options;
   }

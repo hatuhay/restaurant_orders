@@ -1,0 +1,83 @@
+uuid: c3cc73c7-e564-4abe-b1cf-51e9abacb08c
+langcode: es
+status: true
+dependencies:
+  module:
+    - field_group
+    - restaurant_line_item
+third_party_settings:
+  field_group:
+    group_wrapper:
+      children:
+        - name
+        - quantity
+        - price
+        - notes
+        - langcode
+        - user_id
+      parent_name: ''
+      weight: 0
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: form-inline
+        element: div
+        show_label: false
+        label_element: h3
+        required_fields: true
+        attributes: ''
+        effect: none
+        speed: fast
+      label: Wrapper
+id: restaurant_line_item.restaurant_line_item.default
+targetEntityType: restaurant_line_item
+bundle: restaurant_line_item
+mode: default
+content:
+  langcode:
+    type: language_select
+    weight: 5
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  notes:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  price:
+    weight: 3
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  quantity:
+    weight: 2
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+    type: number
+  user_id:
+    type: entity_reference_autocomplete
+    weight: 6
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden: {  }

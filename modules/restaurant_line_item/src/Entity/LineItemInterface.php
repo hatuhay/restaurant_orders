@@ -35,6 +35,65 @@ interface LineItemInterface extends ContentEntityInterface, EntityChangedInterfa
   public function setName($name);
 
   /**
+   * Gets the Line item product.
+   *
+   * @return \Drupal\restaurant_line_item\Entity\LineItemInterface
+   *   Product of the Line item.
+   */
+  public function getProduct();
+
+  /**
+   * Gets the Line item product name.
+   *
+   * @return string
+   *   Name of the Line item product.
+   */
+  public function getProductName();
+
+  /**
+   * Gets the Line item product price.
+   *
+   * @return float
+   *   Price of the Line item product.
+   */
+  public function getProductPrice();
+
+  /**
+   * Get the price of the line item.
+   *
+   * @return float
+   *   The price of the line item.
+   */
+  public function getPrice();
+
+  /**
+   * Sets the Line item price.
+   *
+   * @param string $price
+   *   The Line item price.
+   *
+   * @return \Drupal\restaurant_line_item\Entity\LineItemInterface
+   *   The called Line item entity.
+   */
+  public function setPrice($price);
+
+  /**
+   * Get the quantity of the line item.
+   *
+   * @return integer
+   *   The quantity of the line item.
+   */
+  public function getQuantity();
+
+  /**
+   * Get the amount of the line item.
+   *
+   * @return float
+   *   The calculated amount of the line item.
+   */
+  public function getAmount();
+
+  /**
    * Gets the Line item creation timestamp.
    *
    * @return int

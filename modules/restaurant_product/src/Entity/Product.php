@@ -88,6 +88,14 @@ class Product extends ContentEntityBase implements ProductInterface {
   /**
    * {@inheritdoc}
    */
+  public function getPrice() {
+    $price = $this->get('amount')->getValue();
+    return $price[0]['value'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getCreatedTime() {
     return $this->get('created')->value;
   }

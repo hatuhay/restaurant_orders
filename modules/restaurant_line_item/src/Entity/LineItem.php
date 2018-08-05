@@ -38,18 +38,17 @@ use Drupal\user\UserInterface;
  *   entity_keys = {
  *     "id" = "id",
  *     "label" = "name",
- *     "invoice" = "invoice",
  *     "uuid" = "uuid",
  *     "uid" = "user_id",
  *     "langcode" = "langcode",
  *     "status" = "status",
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/restaurant_line_item/{line_item}",
+ *     "canonical" = "/admin/structure/restaurant_line_item/{restaurant_line_item}",
  *     "add-form" = "/admin/structure/restaurant_line_item/add",
- *     "edit-form" = "/admin/structure/restaurant_line_item/{line_item}/edit",
- *     "delete-form" = "/admin/structure/restaurant_line_item/{line_item}/delete",
- *     "collection" = "/admin/structure/restaurant_line_item",
+ *     "edit-form" = "/admin/structure/restaurant_line_item/{restaurant_line_item}/edit",
+ *     "delete-form" = "/admin/structure/restaurant_line_item/{restaurant_line_item}/delete",
+ *     "collection" = "/admin/restaurant/restaurant_line_item",
  *   },
  *   field_ui_base_route = "restaurant_line_item.settings"
  * )
@@ -115,10 +114,55 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
   /**
    * {@inheritdoc}
    */
+  public function getProduct() {
+    return $this->get('product')->entity;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getProductName() {
+    return $this->getProduct()->getName();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getProductPrice() {
+    return $this->getProduct()->getPrice();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getAmount() {
-    $price = $this->get('price');
-    $quantity = $this->get('quantity');
+    $price = $this->getPrice();
+    $quantity = $this->getQuantity();
     return bcmul($price, $quantity, 2);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setPrice($price) {
+    $this->set('price', $price);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getPrice() {
+    $price = $this->get('price')->getValue();
+    return $price[0]['value'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getQuantity() {
+    $qty = $this->get('quantity')->getValue();
+    return $qty[0]['value'];
   }
 
   /**
@@ -155,13 +199,32 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
   /**
    * {@inheritdoc}
    */
+  public function preSave(EntityStorageInterface $storage) {
+    parent::preSave($storage);
+
+    // The file itself might not exist or be available right now.
+    $product = $this
+      ->getProductName();
+    $qty = $this
+      ->getQuantity();
+    $price = $this
+      ->getProductPrice();
+
+    $this
+      ->setName(t('@product - Quantity: @qty', ['@product' => $product, '@qty' => $qty]));
+    $this
+      ->setPrice($price);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
 
    public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
     $fields = parent::baseFieldDefinitions($entity_type);
 
     $fields['user_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Authored by'))
-      ->setDescription(t('The user ID of author of the Line item entity.'))
       ->setRevisionable(TRUE)
       ->setSetting('target_type', 'user')
       ->setSetting('handler', 'default')
@@ -174,11 +237,15 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
       ->setDisplayOptions('form', [
         'type' => 'entity_reference_autocomplete',
         'weight' => 5,
+        'hidden' => TRUE,
+        'disabled' => TRUE,
         'settings' => [
           'match_operator' => 'CONTAINS',
           'size' => '60',
           'autocomplete_type' => 'tags',
           'placeholder' => '',
+        'hidden' => TRUE,
+        'disabled' => TRUE,
         ],
       ])
       ->setDisplayConfigurable('form', TRUE)
@@ -186,6 +253,7 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
 
     $fields['product'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Product'))
+      ->setRequired(TRUE)
       ->setRevisionable(FALSE)
       ->setSetting('target_type', 'restaurant_product')
       ->setSetting('handler', 'default')
@@ -204,11 +272,15 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
           'autocomplete_type' => 'tags',
           'placeholder' => '',
         ],
-      ]);
+//        '#type' => 'textfield',
+//        '#autocomplete_route_name' => 'restaurant_product.autocomplete',
+//        '#autocomplete_route_parameters' => array('field_name' => 'name', 'count' => 10),
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['name'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Name'))
-      ->setDescription(t('The name of the Line item entity.'))
       ->setSettings([
         'max_length' => 50,
         'text_processing' => 0,
@@ -222,10 +294,10 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
       ->setDisplayOptions('form', [
         'type' => 'string_textfield',
         'weight' => -4,
+        'disabled' => TRUE,
       ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(TRUE);
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['quantity'] = BaseFieldDefinition::create('integer')
       ->setLabel(t('Quantity'))
@@ -245,7 +317,6 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
 
     $fields['price'] = BaseFieldDefinition::create('decimal')
       ->setLabel(t('Price'))
-      ->setRequired(TRUE)
       ->setDefaultValue(0)
       ->setSettings([
         'precision' => 19,
@@ -268,11 +339,12 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
         'weight' => -3,
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['notes'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Note'))
-      ->setDescription(t('Any special note on line item.'))
       ->setSettings([
         'max_length' => 50,
         'text_processing' => 0,
@@ -292,12 +364,13 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
-      ->setDescription(t('A boolean indicating whether the Line item is published.'))
       ->setDefaultValue(TRUE)
       ->setDisplayOptions('form', [
         'type' => 'boolean_checkbox',
         'weight' => -3,
-      ]);
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))

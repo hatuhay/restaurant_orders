@@ -1,0 +1,14 @@
+tables:
+  version: VERSION
+  js:
+    js/tables.js: {}
+  css:
+    component:
+      css/tables.css: {}
+invoice:
+  version: VERSION
+  js:
+    js/invoice.js: {}
+  css:
+    component:
+      css/invoice.css: {}

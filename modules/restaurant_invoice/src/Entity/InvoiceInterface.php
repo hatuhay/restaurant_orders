@@ -74,4 +74,66 @@ interface InvoiceInterface extends ContentEntityInterface, EntityChangedInterfac
    */
   public function setPublished($published);
 
+  /**
+   * Get the currency entity of the Invoice.
+   *
+   * @return \Drupal\restaurant_invoice\Entity\InvoiceInterface
+   *   The curency entity.
+   */
+  public function getCurrency();
+
+  /**
+   * Sets the currency of a Invoice.
+   *
+   * @param string $code
+   *   The currency code.
+   *
+   * @return \Drupal\restaurant_invoice\Entity\InvoiceInterface
+   *   The called Invoice entity.
+   */
+  public function setCurrencyCode($code);
+
+  /**
+   * Gets the currency for the Invoice.
+   *
+   * @return string
+   *   The curency code.
+   */
+  public function getCurrencyCode();
+
+  /**
+   * Get the line_items of a Invoice.
+   *
+   * @return \Drupal\restaurant_invoice\Entity\InvoiceInterface
+   *   The line items.
+   */
+  public function getLineItems();
+
+  /**
+   * Sets the currency of a Invoice.
+   *
+   * @param string $name
+   *   The name of the line item.
+   *
+   * @return \Drupal\restaurant_invoice\Entity\InvoiceInterface
+   *   The line item entity.
+   */
+  public function getLineItem($name);
+
+  /**
+   * Sets the currency of a Invoice.
+   *
+   * @return integer
+   *   The amount Invoice entity.
+   */
+  public function getAmount();
+
+  /**
+   * Calculate amount of a Invoice.
+   *
+   * @return float
+   *   The aount.
+   */
+  public function calculateAmount();
+
 }

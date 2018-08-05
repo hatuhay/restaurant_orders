@@ -11,4 +11,4 @@ restaurant_line_item.admin.structure.settings:
   title: 'Line item settings'
   description: 'Configure Line item entities'
   route_name: restaurant_line_item.settings
-  parent: system.admin_structure
+  parent: system.admin_restaurant

@@ -1,0 +1,7 @@
+restaurant_product.autocomplete:
+  path: '/restaurant/product/autocomplete/{field_name}/{count}'
+  defaults:
+    _controller: '\Drupal\restaurant_product\Controller\AutocompleteController::handleAutocomplete'
+    _format: json
+  requirements:
+    _access: 'TRUE'

@@ -14,6 +14,16 @@
  * @ingroup themeable
  */
 #}
+{{ attach_library('restaurant_invoice/invoice') }}
+
 <div id="invoice-wrapper">
+  <ul class="nav nav-tabs" id="invoiceTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#pedido" role="tab" aria-controls="pedido" aria-selected="false">Pedido</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="detail-tab" data-toggle="tab" href="#detalle" role="tab" aria-controls="home" aria-selected="true">Detalle</a>
+    </li>
+  </ul>
   {{form}}
 </div>

@@ -1,0 +1,54 @@
+#invoice-wrapper {
+    max-width: 760px;
+    margin: 0 auto;
+    min-height: 500px;
+    margin-bottom: 1rem;
+}
+
+.tab-content,
+#invoiceTab a.active {
+    background: #eee;
+}
+
+form label {
+    width: 170px;
+    justify-content: left !important;
+}
+
+label.form-check-label {
+    width: auto;
+}
+
+form .btn {
+    width: auto;
+    align-self: center;
+}
+
+form .filter-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+form .form-type-textarea {
+    margin-bottom: 0;
+}
+
+#edit-line-item .form-inline .form-group {
+    width: 100%;
+}
+
+#edit-line-item input {
+    max-width: 70%;
+}
+
+#edit-line-item-wrapper .field--name-name,
+#edit-line-item-wrapper .field--name-price,
+#edit-line-item-wrapper .field--name-overwrite,
+#edit-line-item-wrapper .field--name-status,
+#edit-line-item-wrapper .field--name-user-id,
+#edit-status-wrapper {
+    display: none;
+    visibility: hidden;
+}

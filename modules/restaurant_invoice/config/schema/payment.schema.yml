@@ -8,6 +8,9 @@ restaurant_invoice.payment.*:
     label:
       type: label
       label: 'Label'
+    weight:
+      type: integer
+      label: 'User role weight'
     default_status:
       type: string
       label: 'Default Payment Status'

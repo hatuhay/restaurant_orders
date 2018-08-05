@@ -39,6 +39,30 @@ class RestaurantSettingsForm extends ConfigFormBase {
 
     $currency_options = \Drupal::service('currency.form_helper')->getCurrencyOptions();
     reset($currency_options);
+    $form["name"] = [
+      '#type' => 'textfield',
+      '#title' => 'Restaurant Name',
+      '#description' => 'Enter commercial the name of the restaurant.',
+      '#size' => '60',
+      '#maxlength' => '100',
+      '#required' => TRUE,
+    ];
+    $form["oficial_name"] = [
+      '#type' => 'textfield',
+      '#title' => 'Restaurant Oficial Name',
+      '#description' => 'Enter the name on oficial records of the restaurant.',
+      '#size' => '60',
+      '#maxlength' => '100',
+      '#required' => TRUE,
+    ];
+    $form["id"] = [
+      '#type' => 'textfield',
+      '#title' => 'RUC',
+      '#description' => 'Enter the ID number of the restaurant.',
+      '#size' => '60',
+      '#maxlength' => '10',
+      '#required' => TRUE,
+    ];
     $form["currency"] = [
       '#type' => 'select',
       '#title' => $this->t('Default Currency'),
@@ -67,9 +91,10 @@ class RestaurantSettingsForm extends ConfigFormBase {
       // Retrieve the configuration
        $this->configFactory->getEditable('restaurant_orders.settings')
       // Set the submitted configuration setting
+      ->set('name', $form_state->getValue('name'))
+      ->set('oficial_name', $form_state->getValue('oficial_name'))
+      ->set('id', $form_state->getValue('id'))
       ->set('currency', $form_state->getValue('currency'))
-      // You can set multiple configurations at once by making
-      // multiple calls to set()
       ->set('tax', $form_state->getValue('tax'))
       ->save();
 

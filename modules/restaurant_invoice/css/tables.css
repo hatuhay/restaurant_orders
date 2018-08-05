@@ -1,0 +1,46 @@
+.tables {
+    width: 760px;
+    margin: 0 auto;
+    height: 500px;
+    border: 1px solid #ddd;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.tab-content {
+    position: relative;
+    background: rgb(221, 196, 168);
+    height: 457px;
+}
+
+.table-unit {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.table-unit a,
+.table-unit a:hover {
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+
+.mesa_1 {
+    left: 10px;
+    top: 10px;
+}
+
+.mesa_2 {
+    left: 200px;
+    top: 120px;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}

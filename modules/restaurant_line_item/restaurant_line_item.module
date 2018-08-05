@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_help().
@@ -21,4 +22,10 @@ function restaurant_line_item_help($route_name, RouteMatchInterface $route_match
 
     default:
   }
+}
+
+/**
+ * Implements hook_form_form_id_alter().
+ */
+function restaurant_line_item_form_restaurant_invoice_form_alter(&$form, &$form_state, $form_id) {
 }
