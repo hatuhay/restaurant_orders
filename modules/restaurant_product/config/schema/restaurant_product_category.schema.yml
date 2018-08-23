@@ -1,6 +1,6 @@
-restaurant_invoice.payment.*:
+restaurant_product.restaurant_product_category.*:
   type: config_entity
-  label: 'Payment config'
+  label: 'Product category config'
   mapping:
     id:
       type: string
@@ -10,9 +10,6 @@ restaurant_invoice.payment.*:
       label: 'Label'
     weight:
       type: integer
-      label: 'Payment weight'
-    default_status:
-      type: string
-      label: 'Default Payment Status'
+      label: 'Category weight'
     uuid:
       type: string

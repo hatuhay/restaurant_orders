@@ -7,7 +7,9 @@ use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\user\UserInterface;
+use Drupal\restaurant_orders\Controller\RestaurantHelper;
 
 /**
  * Defines the Invoice entity.
@@ -47,7 +49,7 @@ use Drupal\user\UserInterface;
  *     "canonical" = "/restaurant/invoice/{restaurant_invoice}",
  *     "add-form" = "/admin/restaurant/invoice/add",
  *     "edit-form" = "/admin/restaurant/invoice/{restaurant_invoice}/edit",
- *     "delete-form" = "/restaurant/invoice/{restaurant_invoice}/delete",
+ *     "delete-form" = "/admin/restaurant/invoice/{restaurant_invoice}/delete",
  *     "collection" = "/restaurant/invoice",
  *   },
  *   field_ui_base_route = "restaurant_invoice.settings"
@@ -63,10 +65,14 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
   public static function preCreate(EntityStorageInterface $storage_controller, array &$values) {
     parent::preCreate($storage_controller, $values);
     $config = \Drupal::config('restaurant_invoice.settings');
+    $timezone = drupal_get_user_timezone();
+    $date = DrupalDatetime::createFromTimestamp(time()); // unix timestamp
+    $date->setTimezone(new \Datetimezone($timezone));
+    $invoice_date = format_date($date->getTimestamp() , 'custom', 'Y-m-d', $timezone);
     $values += [
       'user_id' => \Drupal::currentUser()->id(),
-      'table' => \Drupal::request()->query->get('table'),
-      'invoice_date' => ['year' => date('Y'), 'month' => date('m'), 'day' => date('d')],
+      'table_id' => \Drupal::request()->query->get('table'),
+      'invoice_date' => $invoice_date,
       'customer' => $config->get('customer'),
       'payment' => $config->get('payment'),
       'type' => $config->get('type'),
@@ -129,6 +135,21 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
   /**
    * {@inheritdoc}
    */
+  public function getCustomerId() {
+    return $this->get('customer')->target_id;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setCustomerId($uid) {
+    $this->set('customer', $uid);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getCurrency() {
     return $this->get('currency')->entity;
   }
@@ -154,11 +175,8 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
    */
   public function getLineItems() {
     $line_items = [];
-    foreach ($this->get('line_items') as $field_item) {
-      $line_item = $field_item->getContainedPluginInstance();
-      if ($line_item) {
-        $line_items[$line_item->getName()] = $line_item;
-      }
+    foreach ($this->get('line_item') as $field_item) {
+      $line_items[$field_item->target_id] = $field_item->entity;
     }
 
     return $line_items;
@@ -170,7 +188,7 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
   public function getLineItem($name) {
     $line_items = $this->getLineItems();
     foreach ($line_items as $delta => $line_item) {
-      if ($line_item->getName() == $name) {
+      if ($line_item->title->value == $name) {
         return $line_item;
       }
     }
@@ -183,7 +201,7 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
   public function calculateAmount() {
     $total = 0;
     foreach ($this->getLineItems() as $line_item) {
-      $total = bcadd($total, $line_item->getAmount(), 6);
+      $total = bcadd($total, (int)$line_item->quantity->value * (float)$line_item->price->value, 6);
     }
     return $total;
   }
@@ -195,6 +213,31 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
     $number = $this->get('amount');
     $currency = self::getCurrency();
     return $currency->formatAmount($number);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setAmount($amount) {
+    $this->set('amount', $amount);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTaxAmount() {
+    $number = $this->get('tax_amount');
+    $currency = self::getCurrency();
+    return $currency->formatAmount($number);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setTaxAmount($amount) {
+    $this->set('tax_amount', $amount);
+    return $this;
   }
 
   /**
@@ -219,6 +262,27 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
     $this->set('status', $published ? TRUE : FALSE);
     return $this;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preSave(EntityStorageInterface $storage) {
+    parent::preSave($storage);
+
+    $amount = $this
+      ->calculateAmount();
+    $tax = RestaurantHelper::CalculateTax($amount);
+    $timezone = drupal_get_user_timezone();
+    $date = DrupalDatetime::createFromTimestamp(time()); // unix timestamp
+    $date->setTimezone(new \Datetimezone($timezone));
+    $payment_date = format_date($date->getTimestamp() , 'custom', 'Y-m-d', $timezone);
+
+    $this
+      ->setAmount($amount);
+    $this
+      ->setTaxAmount($tax);
+  }
+
 
   /**
    * {@inheritdoc}
@@ -334,7 +398,7 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
       ->setDisplayConfigurable('view', TRUE)
       ->setRequired(TRUE);
 
-    $fields['table'] = BaseFieldDefinition::create('entity_reference')
+    $fields['table_id'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Table'))
       ->setSetting('handler', 'default')
       ->setSetting('target_type', 'restaurant_table')
@@ -493,8 +557,7 @@ class Invoice extends ContentEntityBase implements InvoiceInterface {
         ],
       ])
       ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE)
-      ->setRequired(TRUE);
+      ->setDisplayConfigurable('view', TRUE);
 
     $fields['payment_date'] = BaseFieldDefinition::create('datetime')
       ->setLabel(t('Payment Date'))

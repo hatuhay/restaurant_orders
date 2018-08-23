@@ -12,3 +12,12 @@ entity.restaurant_product.add_form:
   title: 'Add Product'
   description: 'Add product form'
   parent: entity.restaurant_product.collection
+
+# Product category menu items definition
+entity.restaurant_product_category.collection:
+  title: 'Product category'
+  route_name: entity.restaurant_product_category.collection
+  description: 'List Product category (bundles)'
+  parent: system.admin_structure
+  weight: 99
+

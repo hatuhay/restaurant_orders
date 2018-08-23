@@ -8,5 +8,8 @@ restaurant_orders.restaurant_table_zone.*:
     label:
       type: label
       label: 'Label'
+    weight:
+      type: integer
+      label: 'Table zone weight'
     uuid:
       type: string

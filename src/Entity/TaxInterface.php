@@ -9,5 +9,12 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface TaxInterface extends ConfigEntityInterface {
 
-  // Add get/set methods for your configuration properties here.
+  /**
+   * Gets the tax percent.
+   *
+   * @return float
+   *   The tax percent.
+   */
+  public function getPercent();
+
 }

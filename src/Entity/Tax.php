@@ -75,4 +75,11 @@ class Tax extends ConfigEntityBase implements TaxInterface {
    */
   protected $percent;
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getPercent() {
+    return (float)$this->get('percent');
+  }
+
 }

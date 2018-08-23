@@ -4,11 +4,11 @@ entity.restaurant_line_item.collection:
   title: 'Line item list'
   route_name: entity.restaurant_line_item.collection
   description: 'List Line item entities'
-  parent: system.admin_structure
+  parent: system.admin_restaurant
   weight: 100
 
 restaurant_line_item.admin.structure.settings:
   title: 'Line item settings'
   description: 'Configure Line item entities'
   route_name: restaurant_line_item.settings
-  parent: system.admin_restaurant
+  parent: entity.restaurant_line_item.collection

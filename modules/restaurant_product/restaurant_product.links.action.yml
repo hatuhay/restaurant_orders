@@ -3,3 +3,9 @@ entity.restaurant_product.add_form:
   title: 'Add Product'
   appears_on:
     - entity.restaurant_product.collection
+entity.restaurant_product_category.add_form:
+  route_name: entity.restaurant_product_category.add_form
+  title: 'Add Product category'
+  appears_on:
+    - entity.restaurant_product_category.collection
+

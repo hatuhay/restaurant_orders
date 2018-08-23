@@ -1,13 +1,13 @@
 <?php
 
-namespace Drupal\restaurant_orders\Entity;
+namespace Drupal\restaurant_product\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityInterface;
 
 /**
- * Provides an interface for defining Table zone entities.
+ * Provides an interface for defining Product category entities.
  */
-interface TableZoneInterface extends ConfigEntityInterface {
+interface ProductCategoryInterface extends ConfigEntityInterface {
 
   /**
    * Returns the weight.

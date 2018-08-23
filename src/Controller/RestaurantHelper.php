@@ -57,4 +57,21 @@ class RestaurantHelper extends ControllerBase {
     return $options;
   }
 
+  /**
+   *  (@inheritdoc)
+   */
+  public static function TaxPercent() {
+    $config = \Drupal::config('restaurant_orders.settings');
+    $tax = \Drupal::entityTypeManager()->getStorage('restaurant_tax')->load($config->get('tax'));
+    return $tax->getPercent();
+  }
+
+  /**
+   *  (@inheritdoc)
+   */
+  public static function CalculateTax($amount) {
+    $percent = self::TaxPercent();
+    return ($amount - bcdiv($amount, (1 + $percent), 2));
+  }
+
 }

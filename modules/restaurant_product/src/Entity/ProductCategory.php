@@ -1,29 +1,29 @@
 <?php
 
-namespace Drupal\restaurant_orders\Entity;
+namespace Drupal\restaurant_product\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
 use Drupal\Core\Entity\EntityStorageInterface;
 
 /**
- * Defines the Table zone entity.
+ * Defines the Product category entity.
  *
  * @ConfigEntityType(
- *   id = "restaurant_table_zone",
- *   label = @Translation("Table zone"),
+ *   id = "restaurant_product_category",
+ *   label = @Translation("Product category"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "list_builder" = "Drupal\restaurant_orders\TableZoneListBuilder",
+ *     "list_builder" = "Drupal\restaurant_product\ProductCategoryListBuilder",
  *     "form" = {
- *       "add" = "Drupal\restaurant_orders\Form\TableZoneForm",
- *       "edit" = "Drupal\restaurant_orders\Form\TableZoneForm",
- *       "delete" = "Drupal\restaurant_orders\Form\TableZoneDeleteForm"
+ *       "add" = "Drupal\restaurant_product\Form\ProductCategoryForm",
+ *       "edit" = "Drupal\restaurant_product\Form\ProductCategoryForm",
+ *       "delete" = "Drupal\restaurant_product\Form\ProductCategoryDeleteForm"
  *     },
  *     "route_provider" = {
- *       "html" = "Drupal\restaurant_orders\TableZoneHtmlRouteProvider",
+ *       "html" = "Drupal\restaurant_product\ProductCategoryHtmlRouteProvider",
  *     },
  *   },
- *   config_prefix = "restaurant_table_zone",
+ *   config_prefix = "restaurant_product_category",
  *   admin_permission = "administer site configuration",
  *   entity_keys = {
  *     "id" = "id",
@@ -31,25 +31,25 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/restaurant_table_zone/{restaurant_table_zone}",
- *     "add-form" = "/admin/structure/restaurant_table_zone/add",
- *     "edit-form" = "/admin/structure/restaurant_table_zone/{restaurant_table_zone}/edit",
- *     "delete-form" = "/admin/structure/restaurant_table_zone/{restaurant_table_zone}/delete",
- *     "collection" = "/admin/structure/restaurant_table_zone"
+ *     "canonical" = "/admin/structure/restaurant_product_category/{restaurant_product_category}",
+ *     "add-form" = "/admin/structure/restaurant_product_category/add",
+ *     "edit-form" = "/admin/structure/restaurant_product_category/{restaurant_product_category}/edit",
+ *     "delete-form" = "/admin/structure/restaurant_product_category/{restaurant_product_category}/delete",
+ *     "collection" = "/admin/structure/restaurant_product_category"
  *   }
  * )
  */
-class TableZone extends ConfigEntityBase implements TableZoneInterface {
+class ProductCategory extends ConfigEntityBase implements ProductCategoryInterface {
 
   /**
-   * The Table zone ID.
+   * The Product category ID.
    *
    * @var string
    */
   protected $id;
 
   /**
-   * The Table zone label.
+   * The Product category label.
    *
    * @var string
    */
@@ -93,10 +93,10 @@ class TableZone extends ConfigEntityBase implements TableZoneInterface {
   public function preSave(EntityStorageInterface $storage) {
     parent::preSave($storage);
 
-    if (!isset($this->weight) && ($zones = $storage->loadMultiple())) {
+    if (!isset($this->weight) && ($categories = $storage->loadMultiple())) {
       // Set a role weight to make this new role last.
-      $max = array_reduce($zones, function ($max, $zone) {
-        return $max > $zone->weight ? $max : $zone->weight;
+      $max = array_reduce($categories, function ($max, $category) {
+        return $max > $category->weight ? $max : $category->weight;
       });
       $this->weight = $max + 1;
     }

@@ -35,6 +35,25 @@ interface InvoiceInterface extends ContentEntityInterface, EntityChangedInterfac
   public function setName($name);
 
   /**
+   * Gets the Invoice customer.
+   *
+   * @return string
+   *   Customer of the Invoice.
+   */
+  public function getCustomerId();
+
+  /**
+   * Sets the Invoice customer.
+   *
+   * @param string $uid
+   *   The Invoice name.
+   *
+   * @return \Drupal\restaurant_invoice\Entity\InvoiceInterface
+   *   The called Invoice entity.
+   */
+  public function setCustomerId($uid);
+
+  /**
    * Gets the Invoice creation timestamp.
    *
    * @return int
@@ -121,12 +140,42 @@ interface InvoiceInterface extends ContentEntityInterface, EntityChangedInterfac
   public function getLineItem($name);
 
   /**
-   * Sets the currency of a Invoice.
+   * Sets the amount of a Invoice.
    *
-   * @return integer
+   * @return float
    *   The amount Invoice entity.
    */
   public function getAmount();
+
+  /**
+   * Sets the amount of a Invoice.
+   *
+   * @param float $amount
+   *   The invoice amount.
+   *
+   * @return \Drupal\restaurant_invoice\Entity\InvoiceInterface
+   *   The called Invoice entity.
+   */
+  public function setAmount($anount);
+
+  /**
+   * Gets the tax amount of a Invoice.
+   *
+   * @return float
+   *   The tax amount Invoice entity.
+   */
+  public function getTaxAmount();
+
+  /**
+   * Sets the tax amount of a Invoice.
+   *
+   * @param float $amount
+   *   The invoice tax amount.
+   *
+   * @return \Drupal\restaurant_invoice\Entity\InvoiceInterface
+   *   The called Invoice entity.
+   */
+  public function setTaxAmount($anount);
 
   /**
    * Calculate amount of a Invoice.

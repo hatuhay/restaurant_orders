@@ -27,24 +27,27 @@ class InvoiceAccessControlHandler extends EntityAccessControlHandler {
     switch ($operation) {
 
       case 'view':
-        if (!$entity->isPublished()) {
-          return AccessResult::allowedIfHasPermission($account, 'view unpublished invoice entities');
+        if (!$status) {
+          return AccessResult::allowedIfHasPermission($account, 'view unpublished invoice entities')->cachePerPermissions()->addCacheableDependency($entity);
         }
-        elseif (AccessResult::allowedIfHasPermission($account, 'view published invoice entities')){
-          return TRUE;
-        } else {
-          return (!$status && $account->hasPermission('view own published invoice entities') && $account->isAuthenticated() && $account->id() == $uid);
+        elseif ($account->hasPermission('view published invoice entities')) {
+          return AccessResult::allowed()->cachePerUser();
+        } 
+        else {
+          return AccessResult::allowedIf($status && $account->hasPermission('view own published invoice entities') && $account->isAuthenticated() && $account->id() == $uid)->cachePerPermissions()->addCacheableDependency($entity);
         }
+        break;
 
       case 'update':
-        if (AccessResult::allowedIfHasPermission($account, 'edit invoice entities')){
-          return TRUE;
-        } else {
-          return (!$status && $account->hasPermission('edit own invoice entities') && $account->isAuthenticated() && $account->id() == $uid);
+        if ($account->hasPermission('edit invoice entities')){
+          return AccessResult::allowed()->cachePerUser();
+        } 
+        else {
+          return AccessResult::allowedIf($status && $account->hasPermission('edit own invoice entities') && $account->isAuthenticated() && $account->id() == $uid)->cachePerPermissions();
         }
 
       case 'delete':
-        return AccessResult::allowedIfHasPermission($account, 'delete invoice entities');
+        return AccessResult::allowedIfHasPermission($account, 'delete invoice entities')->cachePerPermissions();
     }
 
     // Unknown operation, no opinion.
