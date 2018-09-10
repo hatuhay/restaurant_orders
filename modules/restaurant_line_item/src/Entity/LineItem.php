@@ -8,6 +8,7 @@ use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\user\UserInterface;
+use Drupal\restaurant_product\Controller\ProductHelper;
 
 /**
  * Defines the Line item entity.
@@ -264,17 +265,16 @@ class LineItem extends ContentEntityBase implements LineItemInterface {
         'weight' => 0,
       ])
       ->setDisplayOptions('form', [
-        'type' => 'entity_reference_autocomplete',
+        '#type' => 'select',
+        '#options' => ProductHelper::getProductOptions(),
+/*      'type' => 'entity_reference_autocomplete',
         'weight' => 5,
         'settings' => [
           'match_operator' => 'CONTAINS',
           'size' => '60',
           'autocomplete_type' => 'tags',
           'placeholder' => '',
-        ],
-//        '#type' => 'textfield',
-//        '#autocomplete_route_name' => 'restaurant_product.autocomplete',
-//        '#autocomplete_route_parameters' => array('field_name' => 'name', 'count' => 10),
+        ], */
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);

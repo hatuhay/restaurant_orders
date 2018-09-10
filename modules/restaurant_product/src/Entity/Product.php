@@ -141,6 +141,28 @@ class Product extends ContentEntityBase implements ProductInterface {
   /**
    * {@inheritdoc}
    */
+  public function getCategoryId() {
+    return $this->get('category')->target_id;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setCategoryId($cid) {
+    $this->set('category', $cid);
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCategory() {
+    return $this->get('category')->entity;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function isPublished() {
     return (bool) $this->getEntityKey('status');
   }
@@ -241,6 +263,25 @@ class Product extends ContentEntityBase implements ProductInterface {
       ])
       ->setDisplayOptions('form', [
         'weight' => -4,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['category'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('Product Category'))
+      ->setSetting('target_type', 'restaurant_product_category')
+      ->setSetting('handler', 'default')
+      ->setReadOnly(TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'weight' => -3,
+        'settings' => [
+          'link' => FALSE,
+        ],
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'options_select',
+        'weight' => -3,
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);

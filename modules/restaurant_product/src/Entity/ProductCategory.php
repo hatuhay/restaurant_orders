@@ -31,7 +31,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
  *     "uuid" = "uuid"
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/restaurant_product_category/{restaurant_product_category}",
+ *     "canonical" = "/product/restaurant_product_category/{restaurant_product_category}",
  *     "add-form" = "/admin/structure/restaurant_product_category/add",
  *     "edit-form" = "/admin/structure/restaurant_product_category/{restaurant_product_category}/edit",
  *     "delete-form" = "/admin/structure/restaurant_product_category/{restaurant_product_category}/delete",

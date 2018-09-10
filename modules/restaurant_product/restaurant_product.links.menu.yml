@@ -18,6 +18,6 @@ entity.restaurant_product_category.collection:
   title: 'Product category'
   route_name: entity.restaurant_product_category.collection
   description: 'List Product category (bundles)'
-  parent: system.admin_structure
+  parent: entity.restaurant_product.collection
   weight: 99
 

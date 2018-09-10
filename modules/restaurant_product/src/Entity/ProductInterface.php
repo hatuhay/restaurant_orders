@@ -43,6 +43,33 @@ interface ProductInterface extends ContentEntityInterface, EntityChangedInterfac
   public function getPrice();
 
   /**
+   * Sets the Product category.
+   *
+   * @param string $cid
+   *   The category id.
+   *
+   * @return \Drupal\restaurant_product\Entity\ProductInterface
+   *   The called Product entity.
+   */
+  public function setCategoryId($cid);
+
+  /**
+   * Gets the Product category.
+   *
+   * @return \Drupal\restaurant_product\Entity\ProductCategory
+   *   Price of the Product.
+   */
+  public function getCategory();
+
+  /**
+   * Gets the Product category id.
+   *
+   * @return string
+   *   Id of the Product category.
+   */
+  public function getCategoryId();
+
+  /**
    * Gets the Product creation timestamp.
    *
    * @return int

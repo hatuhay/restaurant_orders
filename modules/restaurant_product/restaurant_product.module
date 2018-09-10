@@ -54,3 +54,14 @@ function template_preprocess_restaurant_product(array &$variables) {
     $variables['content'][$key] = $variables['children'][$key];
   }
 }
+
+function _cmp($a, $b) {
+  return strcmp($a["label"], $b["label"]);
+}
+
+function _intcmp($a, $b) {
+  if ($a["weight"] == $b["weight"]) {
+    return 0;
+  }
+  return ($a["weight"] < $b["weight"]) ? -1 : 1;
+}
